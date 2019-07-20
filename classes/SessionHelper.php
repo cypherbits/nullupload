@@ -26,12 +26,13 @@ class SessionHelper {
 
     public static function init() {
 
-        //TODO: update this for php 7.3++
         ini_set("session.gc_maxlifetime", self::$maxSessionLifetime);
         ini_set("session.use_strict_mode", "1");
         ini_set("session.cookie_httponly", "1");
         ini_set("session.cookie_lifetime", self::$maxSessionLifetime);
-        ini_set("session.hash_function", "sha256");
+        ini_set("session.sid_bits_per_character", "5");
+        ini_set("session.sid_length", "32");
+        ini_set("session.cookie_samesite", "Strict");
 
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
             ini_set("session.cookie_secure", "1");
