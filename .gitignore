@@ -5,3 +5,4 @@
 /_tcache/
 /src/propelconfig_pro.php
 /logs/app.log
+/*.bak
