@@ -1,17 +1,18 @@
 TODO LIST:
 
 v1.0:
--Migrate from PropelORM to simple PHP Prepared statements.
 -settings page on admin panel to disable uploads.
 -docker deploy for tests?
 -admin: new column of file size.
 -folder size on database instead of a file.
--update password and hashes from sha256 to sha512/256, faster?
--update file hashes from sha1 to sha256
+
 -favicon.
 -review google font dependency?
 -http range download support
 -statistics: number of total downloads served forever. and number of total file uploaded forever.
+
+-Migrate from PropelORM to simple PHP Prepared statements.
+
 
 v1.1:
 -admin:edit news.
@@ -31,7 +32,7 @@ v2.0:
 ------------
 Future work:
 ------------
-
+-update password and hashes from sha256 to sha512/256, faster?
 -file types config on admin page.
 -update sass and bootstrap from the front page.
 

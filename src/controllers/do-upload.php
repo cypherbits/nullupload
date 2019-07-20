@@ -122,7 +122,7 @@ set_time_limit(851);
 
                 $file->setDeletedate($deleteDate);
 
-                $fileHash = sha1_file(__DIR__ . '/../' . '../uploads/' . $filename);
+                $fileHash = hash_file("sha256", __DIR__ . '/../' . '../uploads/' . $filename);
 
                 $file->setIntegrity($fileHash);
 

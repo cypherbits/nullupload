@@ -44,31 +44,6 @@ require("controllers/admin.php");
 
 //require("controllers/users.php");
 
-//$app->get('/test', function ($request, $response, $args) {
-//
-//    $deleteDate = strtotime('+30 days', time());
-//
-//    $rem = $deleteDate - time();
-//    $day = floor($rem / 86400);
-//    $hr = floor(($rem % 86400) / 3600);
-//    $min = floor(($rem % 3600) / 60);
-//    $sec = ($rem % 60);
-//    if ($day)
-//        echo "$day Days ";
-//    if ($hr)
-//        echo "$hr Hours ";
-//    if ($min)
-//        echo "$min Minutes ";
-//    if ($sec)
-//        echo "$sec Seconds ";
-//    echo "Remaining...";
-//    
-//    
-//
-//
-//    exit;
-//});
-
 $app->get('/news', function ($request, $response, $args) {
 
     $news = NewsQuery::create()->orderByDatecreation(\Propel\Runtime\ActiveQuery\Criteria::DESC)->find();
