@@ -1,0 +1,59 @@
+{% extends "template.html" %}
+
+{% block menuzone %}
+{% include("menu.html") %}
+{% endblock %}
+
+{% block page %}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        By joining you can manage your files: browse, view file metadata, get download links and delete files. <br>
+        You only have to provide username and password. <br>
+        Accounts cannot be recovered. We store both username and password hashed.
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <div class="panel-title"><span class="glyphicon glyphicon-user"></span> Join</div>
+    </div>
+    <div class="panel-heading">
+        <form action="{{urlUserJoin}}" method="POST" id="formJoin">
+            <input type="hidden" name="{{nameKey}}" value="{{name}}">
+            <input type="hidden" name="{{valueKey}}" value="{{value}}">
+
+            <div class="form-group">
+                <label for="txtUser">Username</label>
+                <input type="text" class="form-control" name="txtUser" id="txtUser" placeholder="anonymous user">
+            </div>
+            <div class="form-group">
+                <label for="txtPassword">Password</label>
+                <input type="password" class="form-control" name="txtPassword" id="txtPassword" placeholder="password">
+            </div>
+            <div class="form-group">
+                <label for="txtPassword2">Repeat password</label>
+                <input type="password" class="form-control" name="txtPassword2" id="txtPassword2" placeholder="repeat password">
+            </div>
+            <div class="form-group">
+                <div class="checkbox checkbox-primary">
+                    <input id="checkTerms" type="checkbox" name="checkTerms" value="yes">
+                    <label for="checkTerms">
+                        I accept the <a href="#">terms of use</a> and the <a href="#">privacy policy</a>.
+                    </label>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary-inv">Join</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}
+
+

@@ -1,0 +1,7 @@
+/vendor/
+/nbproject/
+/node_modules/
+/.idea/
+/_tcache/
+/src/propelconfig_pro.php
+/logs/app.log

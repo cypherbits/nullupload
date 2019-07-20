@@ -1,0 +1,39 @@
+{% extends "template.html" %}
+
+{% block menuzone %}
+{% include("menu.html") %}
+{% endblock %}
+
+{% block page %}
+
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <div class="panel-title"><span class="glyphicon glyphicon-user"></span> Login</div>
+    </div>
+    <div class="panel-heading">
+        <form action="{{urlUserLogin}}" method="POST" id="formLogin">
+            <input type="hidden" name="{{nameKey}}" value="{{name}}">
+            <input type="hidden" name="{{valueKey}}" value="{{value}}">
+
+            <div class="form-group">
+                <label for="txtUser">Username</label>
+                <input type="text" class="form-control" name="txtUser" id="txtUser" placeholder="anonymous user">
+            </div>
+            <div class="form-group">
+                <label for="txtPassword">Password</label>
+                <input type="password" class="form-control" name="txtPassword" id="txtPassword" placeholder="password">
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary-inv">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}
+
+

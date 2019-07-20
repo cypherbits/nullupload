@@ -1,0 +1,58 @@
+{% extends "admin/template.html" %}
+
+{% block menuzone %}
+{% include("admin/menu.html") %}
+{% endblock %}
+
+{% block page %}
+
+<div class="col-md-12">
+    <h4>Total files: {{nfiles}}</h4>
+    <h5>Used space: {{usedSpace}}MB of max {{maxSize}}MB</h5>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Origname</th>
+                    <th>Extension</th>
+                    <th>UploadDate</th>
+                    <th>NDownloads</th>
+                    <th>LastDownload</th>
+                    <th>Mime type</th>
+                    <th>Password</th>
+                    <th>DeleteDate</th>
+                    <th>DeletePassword</th>
+                    <th>Integrity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <td>{{ file.Id}}</td>
+                    <td>{{ file.Origname}}</td>
+                    <td>{{ file.Extension}}</td>
+                    <td>{{ file.Uploaddate | date("Y-m-d H:i:s") }}</td>
+                    <td>{{ file.Ndownloads}}</td>
+                    <td>{% if file.Lastdownload is not empty %} {{ file.Lastdownload | date("Y-m-d H:i:s")}} {% endif %}</td>
+                    <td>{{ file.Type}}</td>
+                    <td>{% if file.Password is not empty %} <span title="{{file.Password}}">yes</span> {% endif %}</td>
+                    <td>{{ file.Deletedate | date("Y-m-d H:i:s")}}</td>
+                    <td><span title="{{file.Deletepassword}}">ok</span></td>
+                    <td><span title="{{file.Integrity}}">sha1</span></td>
+                    <td><a href="{{urlAdminDownload}}{{file.Id}}">Download</a> | <a href="{{urlAdminDelete}}{{file.Id}}" onclick="return confirm('Delete this file?');">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}

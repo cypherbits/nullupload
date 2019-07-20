@@ -1,0 +1,102 @@
+{% extends "template.html" %}
+
+{% block addtohead %}
+<meta name="robots" content="noindex">
+{% endblock %}
+
+{% block menuzone %}
+{% include("menu.html") %}
+{% endblock %}
+
+{% block page %}
+<div class='panel panel-default'>
+    <div class="panel-body">
+        <h3>Welcome to the Download Page.</h3>
+        <p>File delivery over HTTPS secure connection.</p>
+
+        <hr>
+
+        {% if needspassword == false or (needspassword == true and incorrectpassword is not null and incorrectpassword == false) %}
+
+        <div>
+            <strong>Filename:</strong> {{filename}}
+        </div>
+        <div>
+            <strong>File type:</strong> {{filetype}}
+        </div>
+        <div>
+            <strong>File size:</strong> {{filesize}} bytes
+        </div>
+
+        {% if filesha1 is not empty %}
+        <div>
+            <strong>File SHA1:</strong> {{filesha1}}
+        </div>
+        {% endif %}
+
+        <div>
+            <strong>Countdown until deletion:</strong> {{deleteDate}}
+        </div>
+
+        <hr>
+
+        {% else %}
+
+        <div>
+            <strong>This file and its metadata is protected with a password</strong>
+        </div>
+
+        <hr>
+        {% endif %}
+
+        <h4>Download</h4>
+        <form action="" method="POST">
+            <input type="hidden" name="{{nameKey}}" value="{{name}}">
+            <input type="hidden" name="{{valueKey}}" value="{{value}}">
+            {% if needspassword == false or (needspassword == true and incorrectpassword is not null and incorrectpassword == false) %}
+            <input type="hidden" name="download" value="yes">
+            {% endif %}
+            <div class="form-group">
+                {% if needspassword %}
+                {% if incorrectpassword is null %}
+                <label for="txtDownloadPassword">Password</label>
+                <input type="password" value="{{password}}" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control" required id="txtDownloadPassword" name="txtDownloadPassword">
+
+                {% elseif incorrectpassword == true %}
+                <label for="txtDownloadPassword">Password</label>
+                <p class="text-error"><span class="glyphicon glyphicon-warning-sign"></span> Incorrect password</p>
+                <input type="password" value="{{password}}" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control" required id="txtDownloadPassword" name="txtDownloadPassword">
+
+                {% else %}
+                <input type="hidden" value="{{password}}" name="txtDownloadPassword">
+                <p class="text-success"><span class="glyphicon glyphicon-ok"></span> Password is correct</p>
+                {% endif %}
+
+                {% else %}
+                <label>No password needed</label>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span> Download</button>
+            </div>
+        </form>
+
+        <p>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- nullupload_index -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5722182132199960"
+                 data-ad-slot="2560315174"
+                 data-ad-format="auto"></ins>
+            <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}

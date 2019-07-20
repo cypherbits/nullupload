@@ -1,0 +1,80 @@
+{% extends "admin/template.html" %}
+
+{% block addtohead %}
+<style>
+    body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #eee;
+    }
+
+    .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+    .form-signin .form-signin-heading,
+    .form-signin .checkbox {
+        margin-bottom: 10px;
+    }
+    .form-signin .checkbox {
+        font-weight: normal;
+    }
+    .form-signin .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+    }
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+    .form-signin input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+</style>
+{% endblock %}
+
+{% block menuzone %}
+{% endblock %}
+
+{% block page %}
+
+<div class="container">
+    <form class="form-signin" action="{{urlAdminHome}}" method="POST">
+        <input type="hidden" name="{{nameKey}}" value="{{name}}">
+        <input type="hidden" name="{{valueKey}}" value="{{value}}">
+        <input type="hidden" name="login" value="yes">
+        <h2 class="form-signin-heading">Please sign in </h2>
+        {% if msg is not empty %}
+        <div class="alert alert-danger" role="alert">{{msg}}</div>
+        {% endif %}
+        <label for="txtUsername" class="sr-only">Username</label>
+        <input type="text" id="txtUsername" name="txtUsername" class="form-control" placeholder="User" required autofocus>
+        <label for="txtPassword" class="sr-only">Password</label>
+        <input type="password" id="txtPassword" name="txtPassword" class="form-control" placeholder="Password" required>
+        <!--        <div id="divCaptcha" class="form-control" style="text-align: center;">
+                    <img id="captcha" src="{{captchaImage}}" alt="CAPTCHA Image" />
+                </div>
+                <input type="text" name="txtCaptcha" id="txtCaptcha" size="10" maxlength="6" class="form-control" required=""/>-->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+</div> <!-- /container -->
+
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}

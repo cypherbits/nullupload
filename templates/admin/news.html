@@ -1,0 +1,43 @@
+{% extends "admin/template.html" %}
+
+{% block menuzone %}
+{% include("admin/menu.html") %}
+{% endblock %}
+
+{% block page %}
+
+<div class="px-2">
+    <div>
+        <a href="{{urlAdminCreateNews}}" class="btn btn-outline-primary">New post</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Creation Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for newi in news %}
+            <tr>
+                <td>{{ newi.Id}}</td>
+                <td>{{ newi.Title}}</td>
+                <td>{{ newi.Datecreation | date("Y-m-d H:i:s")}}</td>
+                <td><a href="{{urlAdminDeleteNew}}{{newi.Id}}" onclick="return confirm('Delete this news?');">Delete</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}

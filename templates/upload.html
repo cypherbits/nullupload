@@ -1,0 +1,42 @@
+{% extends "template.html" %}
+
+{% block menuzone %}
+{% include("menu.html") %}
+{% endblock %}
+
+{% block page %}
+<div class='panel panel-default'>
+    <div class="panel-body text-center">
+        <h3>Thank you for using NullUpload.com</h3>
+        <p>This page will provide you with the upload results based on your initial upload criteria. Some areas will not show if certain conditions are not met.</p>
+
+        <hr>
+
+        {% if downloadUrlWithPass is not empty %}
+        <h4>Download link with password</h4>
+        <p>
+            <a href="{{downloadUrlWithPass}}" target="_blank">{{downloadUrlWithPass}}</a>
+        </p>
+
+        {% endif %}
+
+        <h4>Download link</h4>
+        <p>
+            <a href="{{downloadUrl}}" target="_blank">{{downloadUrl}}</a>
+        </p>
+
+        <h4>Download password</h4>
+        <p>{{password}}</p>
+
+        <h4>Delete link</h4>
+        <p>{{deleteUrl}}</p>
+
+        <h4>Countdown until deletion</h4>
+        <p>{{deleteDate}}</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "template.html" %}
+
+{% block menuzone %}
+{% include("menu.html") %}
+{% endblock %}
+
+{% block page %}
+
+<h4>Latests news</h4>
+
+{% for newi in news %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title" style="text-transform: uppercase;">{{newi.Title}}</div>
+        <div class="pull-right">
+            <small>{{newi.Datecreation | date("Y-m-d H:i:s")}}</small>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+        {{newi.Newtext | raw}}
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}

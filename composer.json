@@ -1,0 +1,20 @@
+{
+    "name": "cypherbits/nullupload",
+    "description": "PHP file hosting. Source code of nullupload.com",
+    "authors": [
+        {
+            "name": "juanjo",
+            "email": "juanjo@avanix.es"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.11",
+        "slim/twig-view": "^2.4",
+        "monolog/monolog": "^1.23",
+        "propel/propel": "~2.0@dev",
+        "slim/csrf": "^0.8.3"
+    },
+    "autoload": {
+        "classmap": ["classes/"]
+    }
+}

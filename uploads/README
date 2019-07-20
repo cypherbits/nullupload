@@ -1,0 +1,24 @@
+how to configure this directory on the server
+
+<Directory /home/me/www/upload/>
+            # Important for security, prevents someone from
+            # uploading a malicious .htaccess
+            AllowOverride None
+
+            SetHandler none
+            SetHandler default-handler
+
+            Options -ExecCGI
+            php_flag engine off
+            RemoveHandler .cgi .php .php3 .php4 .php5 .phtml .pl .py .pyc .pyo
+            <Files *>
+                    AllowOverride None
+
+                    SetHandler none
+                    SetHandler default-handler
+
+                    Options -ExecCGI
+                    php_flag engine off
+                    RemoveHandler .cgi .php .php3 .php4 .php5 .phtml .pl .py .pyc .pyo
+            </Files>
+    </Directory>

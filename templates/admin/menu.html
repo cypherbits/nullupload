@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">admin</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-link {% if page == "files" %} active {% endif %}"><a class="nav-link" href="{{urlAdminHome}}">Files</a></li>
+      <li class="nav-link {% if page == "news" %} active {% endif %}"><a class="nav-link" href="{{urlAdminNews}}">News posts</a></li>
+      <!--<li class="nav-link {% if page == "opcache" %} active {% endif %}"><a class="nav-link" href="{{urlAdminOpcache}}">Opcache</a></li>-->
+    </ul>
+    <ul class="navbar-nav">
+      <li><a class="nav-link" href="{{urlAdminLogout}}">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<br>

@@ -1,0 +1,66 @@
+TODO LIST:
+
+v1.0:
+-Migrate from PropelORM to simple PHP Prepared statements.
+-settings page on admin panel to disable uploads.
+-docker deploy for tests?
+-admin: new column of file size.
+-folder size on database instead of a file.
+-update password and hashes from sha256 to sha512/256, faster?
+-update file hashes from sha1 to sha256
+-favicon.
+-review google font dependency?
+-http range download support
+-statistics: number of total downloads served forever. and number of total file uploaded forever.
+
+v1.1:
+-admin:edit news.
+
+v1.5:
+-onion services support.
+-option to make "separated spaces": uploads from onion only downloable on only etc. Option on admin panel.
+-blocking files by hash.
+
+-new file id: based on the password. we wont store password hash anymore.
+-edit page??
+-encrypt file name and/or extension with the download password for uploads using it.
+
+v2.0: 
+-add javascript and mozilla send compatible end-to-end encrypted upload.
+
+------------
+Future work:
+------------
+
+-file types config on admin page.
+-update sass and bootstrap from the front page.
+
+
+------------------
+History changelog:
+------------------
+
+changelog public: v0.6.2: 13/07/2019
+-added new reporting email. make it bold we do not allow child porn.
+-check by default hiding the original file name and making a download password.
+
+changelog public v0.6.1: new server [TBR]
+-increased disk limit from 4GB to 12GB.
+-Removed 100 days, added 120, 150 and 180.
+-delete files where last download date is more than 100 days.
+
+
+changelog public v0.6:
+-Added metatag to prevent download pages from indexing in Google and other search engines.
+-Added latest blog entry title on homepage.
+-Files with 0 downloads older than 2 days will be deleted.
+-update privacy policy.
+-update terms and conditions.
+
+changelog public v0.5:
+-updated all internal code and dependencies.
+-faster downloads.
+-100MB for files and 100 days online for free!
+
+------------------------------------------------------------------
+

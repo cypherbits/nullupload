@@ -1,0 +1,140 @@
+{% extends "template.html" %}
+
+{% block menuzone %}
+{% include("menu.html") %}
+{% endblock %}
+
+{% block page %}
+{% if latestNew is not empty %}
+<div class='panel panel-default'>
+    <div class="panel-body">
+        <div>Latest blog entry: <a href="{{urlNews}}">{{latestNew.Title}}</a></div>
+    </div>
+</div>
+{% endif %}
+
+<div class='panel panel-default'>
+    <div class="panel-body">
+        <h4><span class="glyphicon glyphicon-cloud-upload"></span> Upload <small>We don't track you</small></h4>
+        <p>
+            File types: all except executable files.<br>
+            Max Upload Size: 100MB<br>
+            File Retention time is: 24h, 7 days, 15 days, 1 month, 3 months, 6 months, 1 year.
+        </p>
+    </div>
+
+</div>
+
+
+<form action="{{urlHome}}" method="POST" enctype="multipart/form-data" id="formUpload">
+    <input type="hidden" name="{{nameKey}}" value="{{name}}">
+    <input type="hidden" name="{{valueKey}}" value="{{value}}">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <input type='file' id="inputFile" name="inputFile" style="cursor:pointer;" accept-charset="utf-8" required>
+            <button id="btnSelectFile" class="btn btn-primary-inv" style="display: none;"><span class="glyphicon glyphicon-paperclip"></span> Select file</button>
+            <label id="txtFileName" for="btnSelectFile" style="font-weight: normal; cursor: pointer; display: none;">No file selected...</label>
+        </div>
+    </div>
+
+
+    <div class="tabsUpload">
+
+        <div class="panel panel-primary backcolor">
+            <div class="panel-body">
+                <div style="margin: 0 auto;">
+                    <div class="form-group">
+                        <div class="checkbox checkbox-primary">
+                            <input id="checkChangeFilename" type="checkbox" name="checkChangeFilename" value="yes" checked>
+                            <label for="checkChangeFilename">
+                                Randomize filename
+                            </label>
+                            <small>(Do not save original filename)</small>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="checkbox checkbox-primary">
+                            <input id="checkWithPass" type="checkbox" name="checkWithPass" value="yes" checked>
+                            <label for="checkWithPass">
+                                Protect with a password
+                            </label>
+                            <small>(Users will have to enter a password to download the file)</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectDelete">Delete in</label>
+                        <select class="form-control" id="selectDelete" name="selectDelete">
+                            <option value="24h">24 hours</option>
+                            <option value="7d">7 days</option>
+                            <option value="15d">15 days</option>
+                            <option value="1m">1 month</option>
+                            <option value="3m">3 months</option>
+                            <option value="6m">6 months</option>
+                            <option value="1y">1 year</option>
+                        </select>
+                        <small>Files older than 2 days with 0 downloads will be deleted. Files with no downloads for 100 days will be deleted.</small>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+    </div>
+
+
+
+    <div class='panel panel-default'>
+        <div class="panel-body text-center">
+            <p>
+                By uploading you are agreeing to the <a href="{{urlTerms}}">Terms and Conditions</a> and <a href="{{urlPrivacy}}">Privacy Policy</a>.
+            </p>
+            <hr>
+            <div>
+                <button type="submit" class="btn btn-primary btn-lg" id="btnUpload"><span class="glyphicon glyphicon-open"></span> Upload</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+{% endblock %}
+
+{% block addtobody %}
+
+<script>
+    $(document).ready(function () {
+        $("#btnSelectFile").show();
+        $("#txtFileName").show();
+        $("#inputFile").hide();
+
+        $("#btnSelectFile").on("click", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $("#inputFile").click();
+        });
+
+        $("#btnUpload").attr("disabled", "true");
+
+        $("#inputFile").change(function (e) {
+            var fileName = e.target.files[0].name;
+            var fileSize = e.target.files[0].size;
+
+            var maxFileSize = 101 * 1024 * 1024;
+
+            if (fileSize > maxFileSize) {
+                alert("Error: This file is too big.");
+                $("#btnUpload").attr("disabled", "true");
+            } else {
+                $("#txtFileName").html(fileName);
+                $("#btnUpload").removeAttr("disabled");
+            }
+
+        });
+    });
+
+</script>
+
+{% endblock %}

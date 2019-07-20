@@ -1,0 +1,32 @@
+{% extends "admin/template.html" %}
+
+{% block menuzone %}
+{% include("admin/menu.html") %}
+{% endblock %}
+
+{% block page %}
+
+<div class="col-md-12">
+    <form action="{{urlAdminCreateNews}}" method="POST">
+        <input type="hidden" name="{{nameKey}}" value="{{name}}">
+        <input type="hidden" name="{{valueKey}}" value="{{value}}">
+        <div class="form-group">
+            <label for="txtTitle">Title</label>
+            <input type="text" class="form-control" id="txtTitle" name="txtTitle" placeholder="Title" maxlength="240">
+        </div>
+        <div class="form-group">
+            <label>Post text</label>
+            <textarea id="txtNews" name="txtNews" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block addtobody %}
+
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<script>tinymce.init({selector: 'textarea'});</script>
+
+{% endblock %}

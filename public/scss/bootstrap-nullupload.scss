@@ -1,0 +1,175 @@
+$color-primary: #ed2b2b !default;
+$color-darken: darken($color-primary, 15%);
+
+@import "variables";
+@import "bootstrap";
+@import "bootswatch";
+@import "custom";
+@import "awesome-bootstrap-checkbox";
+
+/** nullupload */
+
+html,
+body {
+    height: 100%;
+    background-color: #212121;
+    color: #d2d2d2;
+}
+
+.masthead-brand{
+    color:$color-primary;
+}
+
+
+a{
+    color: $color-primary;
+}
+
+a:hover, a:visited, a:focus{
+    text-decoration: none;
+    color: $color-darken;
+}
+
+.panel-heading a{
+    color:#CCC;
+    text-decoration: underline;
+}
+
+button[data-dir="up"], #txtGB{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+button[data-dir="down"], #txtGB{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+#txtGB{
+    box-shadow: none !important;
+}
+
+.panel-primary .panel-heading{
+    background-color: $color-darken;
+    border-color: $color-darken;
+}
+.panel-primary{
+    border-color: $color-darken;
+}
+.panel-primary.backcolor{
+    background-color: $color-darken;
+}
+
+.panel-default{
+    background-color: #292929;
+}
+
+
+.nav.nav-tabs li a{
+    border: solid 1px $color-darken;
+    border-bottom:none;
+}
+.nav.nav-tabs li a:hover, .nav.nav-tabs li a:active, .nav.nav-tabs li a:focus{
+    background-color: $color-darken;
+    color:#FFF;
+    border-bottom: none;
+}
+.nav.nav-tabs li.active a{
+    background-color: $color-darken;
+    color:#FFF;
+    border-color:$color-darken;
+}
+
+
+.btn-primary, .btn-primary[disabled]:hover{
+    background-color: $color-darken;
+    color:#FFF;
+    border:none;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus{
+    background-color: $color-primary;
+}
+
+.btn-primary-inv{
+    background-color: #FFF;
+    color:$color-darken;
+    border:solid 2px $color-darken;
+}
+
+.btn-primary-inv:hover, .btn-primary-inv:focus, .btn-primary-inv:active{
+    background-color: $color-primary;
+}
+
+.privacy-icon:before{
+    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABwlBMVEX///8zzAAlwgAlwgAkwwAjxQAgvwAlwgAkwgAlwgAazAAlwgAlwgAmwgAlwgAkwgAlwgAmwgAovAAkxAAmwAAkwwAnxAAkwgAlwgAlwgAjwQAlwgAlwgAmwgAfwQAkwgAlwgAlwgAlwwAkwQAmwgAlwgAA/wAkwgAlwgAlwgAktgAjwwAkwQAlwwAcxgBAvwAmwgAmwgAmwQAnwQAlwgAlwgAlwgAkwgAlwQAlwQAlwQAlwgAlwwAkwgAlwgAlwgAkwgAjwwAlwgAkwgAlwgAmwQAlwQAlwgAnxAAkwwAkwwAkwQAmwgAkwQArvwAlwQAmwwAmvwAr1QAlwgAlwgAlwQAA/wAlwgAmwwAlwgAlwwAlwgAlwgAkwgAmxAAlwgAlwwAiuwAmwQAlwgAmwwAkwwAmxgAlwgAkxAAlwgAiwQAlwgAmwQAlwgAmwgAlwgAlwgAlwwAkwgAmwwAkwgAlwgAlwgAmwgAjvwAlwgAjwAAlwgAmwgAnxAAkwwAmwwAlwQAkwgAlwgAmwgAhxQAlwQAgvwAmwgAlxQAkwwAlwgAlwgAjwQAlwgAkyAAnwgAmwgAkwwAmwQAuuQAlwgAAAABG7rHEAAAAlHRSTlMABZLIdxYQbcSfCnX1ovCN2+4TKz1VGirq8jp9+o4hm87806F5jwI/uEsHM1s3CQRDqldCybGer8dakf2lMubxvUhgFWiAz94NQJS2o2MMrr4UBtjvKQGJUaZZ3dZ+SZeDD3P4h38b1DjVJexr0WSC/sLZIoW7duck7UHhxTRdRITSw3ofmQjMMGrz3x2sDi63jIgLq0KpLwAAAAFiS0dElQhgeoMAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfgCA4PKyE7eifaAAABqUlEQVQ4y22SZUMCQRBAV8QAAzFRMRBFQgQM7A5sRcoCAzuxA7s75we7F8rFzoe92Xtvb+d2FiE2oiTR0hgUGxcvkyNiJABAYlIyHhVkIQX+QhlF4qkQiTSSkM4RMgg8M0v1z7NzMkU8V52XX1CoxlRTpE0r1pTo+LwUE73BaDSVmcstVhueVfCFSubTVdX2mlolndcJtqhvAF406oRFNDVzcEsp4TcaOUIr6RykHKGEJLRxhHaSII8Ukd1BbFbnv9BF7qalm+WOHnre29c/MMjr69AwzUec1GRUBmqXGxweruE1+PR5YxY6HwdFLNJNKCedEZ4zVY/Pz58SwLkZptkezPzh2bkggFY3j/vZ5UQLsMi8rlpinsv2RLqAFXoMrtqD7DrtGrV4fYPfKtjcCrF3ZnsHoV03CMNmhT2am8CHtxFxUKH90IERX9TD5FR0JObHJx1hbJ3ugOoMoXMR11xUqiB0OXx1fUN1RSISpLdrAHezi16mzhoh198/AKgfFXDKCLVCYcKPhyfPM4QZ4UUovL4ByN5d+LwYodsliMDH59f9N5X9UPwX7DIJPK8ngSEAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTYtMDgtMTRUMTU6NDM6MzMrMDI6MDCcHtAfAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE2LTA4LTE0VDE1OjQzOjMzKzAyOjAw7UNoowAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAASUVORK5CYII=);
+}
+
+
+.tabsUpload {
+    position: relative;   
+    clear: both;
+    margin: 25px 0;
+}
+.tabsUpload .tab {
+    float: left;
+}
+.tabsUpload .tab [type=radio] ~ label {
+    padding: 10px;
+    margin-left: -1px; 
+    position: relative;
+    left: 1px;
+    display: inline;
+    font-weight: normal;
+    border: solid 1px $color-darken;
+    border-bottom:none;
+    border-radius: 4px 4px 0 0;
+    margin-right: 4px;
+    cursor:pointer;
+}
+.tabsUpload .tab [type=radio] {
+    display: none;   
+}
+.tabsUpload .content {
+    position: absolute;
+    top: 28px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+}
+.tabsUpload [type=radio]:checked ~ label {
+    z-index: 2;
+    background-color: $color-darken;
+    color:#FFF;
+    border-bottom: none;
+}
+.tabsUpload [type=radio]:checked ~ label ~ .content {
+    z-index: 1;
+}
+
+.tabsUpload .form-group label{
+    cursor:pointer;
+    vertical-align: middle;
+}
+
+hr{
+    border-top-color:$color-darken;
+}
+
+input[type=text], input[type=password], select, textarea{
+    box-shadow: none;
+    border:solid 2px $color-darken;
+    color:$color-darken;
+}
+
+input[type=text]:focus, input[type=password]:focus, select:focus, textarea:focus, select:focus, .form-control:focus{
+    box-shadow: none;
+    border-color: $color-primary;
+}
+
+.text-error{
+    color:$color-primary;
+}
+
+label{
+    font-weight: normal;
+}

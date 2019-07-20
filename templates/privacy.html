@@ -1,0 +1,84 @@
+{% extends "template.html" %}
+
+{% block menuzone %}
+{% include("menu.html") %}
+{% endblock %}
+
+{% block page %}
+
+<div class="text-justify">
+    <p>This Privacy Policy governs the manner in which NullUpload.com collects, uses, maintains and discloses information collected from users (each, a "User") of the Clearnet:
+        <a rel='noopener noreferrer' href="https://obscuredfiles.com/" target="_blank">https://nullupload.com/</a> 
+        Hidden Service: <a rel='noopener noreferrer' href="#" target="_blank">coming soon</a> websites.</p>
+    <h3>Personal Identification Information</h3>
+    <p>Users visit our Site anonymously. NullUpload.com does not store logs upon the activity of our Site, only basic error logs for security purposes. The only time we can collect any 
+        personal information is when the user uploads a file. A user can upload a file with personal information embedded in such file. While we try our best to protect users information 
+        from being posted on our site, the user themselves are responsible for actions to keep their anonymously. </p>
+    <h3>Third Party Information Collection</h3>
+    <p>NullUpload.com (Clearnet) uses Google Analytics to provide aggregated form statistics. We use these stats to improve the operation of the site and fix website issues before they are 
+        reported. The stats also provide information as to where the best location is to deploy a new server for the most effective downloading experience. If you don't want any information 
+        collected by Google Analytics you can get an AdBlocker (<a href="https://www.ublock.org/" target="_blank" rel='noopener noreferrer'>uBlock</a>) or 
+        turn off <a href="http://www.computerhope.com/issues/ch000891.htm" target="_blank" rel='noopener noreferrer'>javascript</a>. This website is optimized to work with javascript enabled or disabled.</p>
+    <p>
+        This website uses Google Adsense to show advertisements in order to monetize the service.
+    </p>
+    <h3>Web Browser Cookies</h3>
+    <p>We use cookies for user authentication and session authentication.</p>
+    <h3>How We Use Collected Information</h3>
+    <p>NullUpload.com may collect and use Users information for the following purposes:</p>
+    <ul>
+        <li>
+            <i>To run and operate our Site</i>
+            <br>We store uploaded files on our server. When a User makes a request for a file, and the request is valid, we serve the requested file to the requesting User.
+            <br>We store basic error GET data for some time for security purposes. It contains the GET petition and the user IP (IP stored is actually Cloudflare's IP, no user's real IP). 
+            For more anonymous uploads/downloads use our Tor Hidden Service.
+            <br>We do NOT store the IP adress for each upload, so uploads can remain anonymous.
+            <br>We store error logs, not access logs. If a user don't trigger an error, the requesting IP will not be logged.
+        </li>
+    </ul>
+    <h3>How We Protect Your Information</h3>
+    <p>On our Clearnet site we provide a high security SSL certificate. The security of such certificate can be security audited 
+        <a rel='noopener noreferrer' href="https://www.ssllabs.com/ssltest/analyze.html?d=nullupload.com" target="_BLANK">at any time</a>. At the same time, please check out 
+        our <a rel='noopener noreferrer' href="https://securityheaders.io/?q=https%3A%2F%2Fnullupload.com%2F" target="_BLANK">header security</a>. We also have 
+        been <a rel='noopener noreferrer' href="http://dnsviz.net/d/nullupload.com/analyze/" target="_BLANK">setup with DNSSEC friendly DNS servers</a> that are outfitted with DNSSEC to protect 
+        against <a rel='noopener noreferrer' href="http://www.howtogeek.com/161808/htg-explains-what-is-dns-cache-poisoning/" target="_BLANK">DNS cache poisoning</a> while also providing 
+        origin authentication, data integrity, and authenticated denial of existence. These security features provides protection for all information transfer from the User to the Clearnet 
+        Site. The Hidden Service is within the encrypted network of tor. All connections are already encrypted and DNS leaking is no longer possible so these protections are not needed to 
+        securely transfer information.</p>
+    <p>All files are stored outside the web directory with random file names. Files are only accessable to the User when given the appropriate download link. When serving we pull the 
+        assigned (original if Randomize Filename not selected) name of the uploaded file from a database and serve the requested file named as such.</p>
+    <p>To protect Users anonymously, we have rebuilt this site exceeding standard file security practices, store a few error logs for a few weeks, provide a hidden service site to enhance privacy 
+        for users that still think we do store logs (hidden services can not retreve IP addresses).
+    </p>
+    <h3>Sharing Your Personal Information</h3>
+    <p>Unless the user uploads or posts personal information or is a court order, we do not have any. If the user did upload personal information, it would only be accessable from 
+        appropriate download link. If a User chooses to password protect their download link there is no way to access the file unless the appropate password is provided on the appropate 
+        download link. All randomly generated passwords are saved in hash format.</p>
+    <h3>Changes To This Privacy Policy</h3>
+    <p>NullUpload.com has the discretion to update this privacy policy at any time. When we do, we will revise the updated date at the bottom of this page. We encourage Users to 
+        frequently check this page for any changes to stay informed about how we are helping to protect the personal information we collect. You acknowledge and agree that it is your 
+        responsibility to review this privacy policy periodically and become aware of modifications.</p>
+    <h3>Your Acceptance Of These Terms</h3>
+    <p>By using this Site, you signify your acceptance of this policy. If you do not agree to this policy, please do not use our Site. Your continued use of the Site following the 
+        posting of changes to this policy will be deemed your acceptance of those changes.</p>
+    <h3>Contacting Us</h3>
+    <p>If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us on our our private email (<a rel='noopener noreferrer' href="mailto:nullupload@tuta.io">nullupload@tuta.io</a>).</p>
+    <h3>What data is stored and logged</h3>
+    <p>
+    -No IP is logged unless the user triggers an application error, then we log the error.
+    <br>-Uploaded files.
+<!--    <br>-Username and password from registered users: both of which are hashed.-->
+<!--    <br>-Whose files belong to which user (if selected).-->
+    <br>-Extra data from files: upload date, number of downloads, last download date, SHA1 file hash, original filename (if selected).
+    <br>-We do not actively scan/view/search uploaded files. If you find an abusive file, please report us.
+    </p>
+    <p>This website works with Javascript disabled.</p>
+    <br>
+    <p>This document was last updated on October 19, 2018</p>
+</div>
+
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}
