@@ -11,14 +11,14 @@
 {% for newi in news %}
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <div class="panel-title" style="text-transform: uppercase;">{{newi.Title}}</div>
+        <div class="panel-title" style="text-transform: uppercase;">{{newi.title}}</div>
         <div class="pull-right">
-            <small>{{newi.Datecreation | date("Y-m-d H:i:s")}}</small>
+            <small>{{newi.dateCreation | date("Y-m-d H:i:s")}}</small>
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-        {{newi.Newtext | raw}}
+        {{newi.newText | raw}}
     </div>
 </div>
 {% endfor %}

@@ -32,18 +32,18 @@
             <tbody>
                 {% for file in files %}
                 <tr>
-                    <td>{{ file.Id}}</td>
-                    <td>{{ file.Origname}}</td>
-                    <td>{{ file.Extension}}</td>
-                    <td>{{ file.FileSize | number_format}}</td>
-                    <td>{{ file.Uploaddate | date("Y-m-d H:i:s") }}</td>
-                    <td>{{ file.Ndownloads}}</td>
-                    <td>{% if file.Lastdownload is not empty %} {{ file.Lastdownload | date("Y-m-d H:i:s")}} {% endif %}</td>
-                    <td>{{ file.Type}}</td>
-                    <td>{% if file.Password is not empty %} <span title="{{file.Password}}">yes</span> {% endif %}</td>
-                    <td>{{ file.Deletedate | date("Y-m-d H:i:s")}}</td>
+                    <td>{{ file.id}}</td>
+                    <td>{{ file.origName}}</td>
+                    <td>{{ file.extension}}</td>
+                    <td>{{ file.fileSize | number_format}}</td>
+                    <td>{{ file.uploadDate | date("Y-m-d H:i:s") }}</td>
+                    <td>{{ file.nDownloads}}</td>
+                    <td>{% if file.lastDownload is not empty %} {{ file.lastDownload | date("Y-m-d H:i:s")}} {% endif %}</td>
+                    <td>{{ file.type}}</td>
+                    <td>{% if file.password is not empty %} <span title="{{file.password}}">yes</span> {% endif %}</td>
+                    <td>{{ file.deleteDate | date("Y-m-d H:i:s")}}</td>
                    <!-- <td><span title="{{file.Deletepassword}}">ok</span></td>-->
-                    <td><span title="{{file.Integrity}}">sha256</span></td>
+                    <td><span title="{{file.integrity}}">sha256</span></td>
                     <td><a href="{{urlAdminDownload}}{{file.Id}}">Download</a> |
                         <a href="{{urlAdminDelete}}{{file.Id}}" onclick="return confirm('Delete this file?');">Delete</a> |
                         <a href="path_for('adminDeleteAndBlock', { 'id': {{file.Id}})" onclick="return confirm('Delete and Block this file?');">D&Block</a>

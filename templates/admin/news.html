@@ -24,10 +24,10 @@
             <tbody>
             {% for newi in news %}
             <tr>
-                <td>{{ newi.Id}}</td>
-                <td>{{ newi.Title}}</td>
-                <td>{{ newi.Datecreation | date("Y-m-d H:i:s")}}</td>
-                <td><a href="{{urlAdminDeleteNew}}{{newi.Id}}" onclick="return confirm('Delete this news?');">Delete</a></td>
+                <td>{{ newi.id}}</td>
+                <td>{{ newi.title}}</td>
+                <td>{{ newi.dateCreation | date("Y-m-d H:i:s")}}</td>
+                <td><a href="{{urlAdminDeleteNew}}{{newi.id}}" onclick="return confirm('Delete this news?');">Delete</a></td>
             </tr>
             {% endfor %}
             </tbody>

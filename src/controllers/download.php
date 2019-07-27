@@ -66,7 +66,7 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
 
                     $ph = hash("sha256", $inputPassword);
 
-                    if (hash_equals($file->getPassword(), $ph)) {
+                    if (hash_equals($file['password'], $ph)) {
 
                         $incorrectPassword = false;
 
@@ -84,10 +84,10 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
                                         'name' => $name,
                                         'valueKey' => $valueKey,
                                         'value' => $value,
-                                        'filetype' => $file->getType(),
+                                        'filetype' => $file['type'],
                                         'filename' => $downloadfilename,
                                         'filesize' => filesize(__DIR__ . '/../' . '../uploads/' . $filename),
-                                        'filesha1' => $file->getIntegrity(),
+                                        'filesha256' => $file['integrity'],
                                         'deleteDate' => $deleteDate
                             ]);
                         }
@@ -111,7 +111,7 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
 
             return $this->view->render($response, 'download-error.html', [
                         'page' => 'download',
-                        'errormsg' => 'This file ' . $file->getId() . ' does not exists anymore'
+                        'errormsg' => 'This file ' . $file['id'] . ' does not exists anymore'
             ]);
         }
     } else {
