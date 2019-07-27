@@ -1,6 +1,8 @@
 <?php
 // DIC configuration
 
+use nullupload\DB;
+
 $container = $app->getContainer();
 
 // monolog
@@ -17,13 +19,14 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-//Propel config
-if ($_SERVER['SERVER_NAME'] == "localhost") {
-    //Test config database
-    require("propelconfig.php");
-}else{
-    //Production config database
-    require("propelconfig_pro.php");
+$c = $container;
+
+
+try{
+    DB::init($c->get('settings')['database']);
+}catch (PDOException $e){
+    $c->logger->addError($e->getMessage());
+    die("Database connection error");
 }
 
 

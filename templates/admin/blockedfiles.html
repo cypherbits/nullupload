@@ -1,0 +1,26 @@
+{% extends "admin/template.html" %}
+
+{% block menuzone %}
+{% include("admin/menu.html") %}
+{% endblock %}
+
+{% block page %}
+
+<div class="px-2">
+    <table class="table table-sm">
+        <tbody>
+        {% for file in blockedFiles %}
+        <tr>
+            <td>{{file.fileHash}}</td>
+            <td><a href="{{urlAdminDownload}}{{file.Id}}">Remove</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block addtobody %}
+
+{% endblock %}

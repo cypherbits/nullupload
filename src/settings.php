@@ -47,6 +47,12 @@ return [
                 'application/vnd.android.package-archive',
                 'application/x-executable'
             ]
-        ]
+        ],
+        'database' => [
+            'server' => 'localhost',
+            'database' => 'nullupload',
+            'username' => 'nullupload',
+            'password' => 'asdasdf'
+        ],
     ],
 ];

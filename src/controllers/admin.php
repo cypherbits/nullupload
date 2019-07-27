@@ -1,5 +1,9 @@
 <?php
 
+use nullupload\DB;
+use Slim\Http\Request;
+use Slim\Http\Response;
+
 /*Change this to change the admin access route*/
 $app->group('/_superadmin', function () {
 
@@ -88,6 +92,25 @@ $app->group('/_superadmin', function () {
         return $response->withRedirect($this->router->pathFor("admin"));
     })->setName("adminDelete");
 
+    $this->get('/deleteblock-{id:[a-z0-9]{8,10}}', function ($request, $response, $args) {
+        if (SessionHelper::isAdminSession()) {
+            $fileid = $args['id'];
+            $file = FilesQuery::create()->filterById($fileid)->findOne();
+
+            $path = __DIR__ . '/../' . '../uploads/';
+
+            IOHelper::delete($file, $path);
+
+            $fileHash = $file->getIntegrity();
+
+            $stm = DB::getDB()->prepare("insert into bannedFiles(fileHash) values(?)");
+            $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
+            $stm->execute();
+        }
+
+        return $response->withRedirect($this->router->pathFor("admin"));
+    })->setName("adminDeleteAndBlock");
+
     $this->get('/logout', function ($request, $response, $args) {
         if (SessionHelper::isAdminSession()) {
             SessionHelper::setAdminSession(false);
@@ -174,4 +197,21 @@ $app->group('/_superadmin', function () {
             return $response->withRedirect($this->router->pathFor("admin"));
         }
     })->setName("adminDeleteNew");
+
+    $this->map(['GET', 'POST'], '/blockedfiles', function (Request $request, Response $response, $args) {
+        if (SessionHelper::isAdminSession()) {
+            if ($request->isPost()){
+                //TODO: add or delete
+            }
+
+            $stm = DB::getDB()->prepare("select fileHash from bannedFiles");
+            $stm->execute();
+
+            $blockedFiles = $stm->fetchAll();
+
+            return $this->view->render($response, 'admin/blockedfiles.html', [
+                'blockedFiles' => $blockedFiles
+            ]);
+        }
+    })->setName("adminBlockedFiles");
 });

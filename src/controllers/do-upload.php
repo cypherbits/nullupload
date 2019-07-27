@@ -1,5 +1,7 @@
 <?php
 
+use nullupload\DB;
+
 $app->post('/', function ($request, $response, $args) {
 
 set_time_limit(851);
@@ -127,6 +129,15 @@ set_time_limit(851);
                 $file->setIntegrity($fileHash);
 
                 $file->save();
+
+                /* TODO: better, Update file size*/
+                $fileId = $file->getId();
+                $fileSize = filesize(__DIR__ . '/../' . '../uploads/' . $filename);
+
+                $stm = DB::getDB()->prepare("update files set fileSize = ? where id = ?");
+                $stm->bindParam(1,$fileSize, PDO::PARAM_INT);
+                $stm->bindParam(2,$fileId, PDO::PARAM_INT);
+                $stm->execute();
 
                 //$downloadUrl = "https://" . $_SERVER['SERVER_NAME'] . "/download-" . $id;
                 $downloadUrl = 'http://' . $_SERVER['SERVER_NAME'] . $this->router->pathFor("download", [

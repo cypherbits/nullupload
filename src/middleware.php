@@ -5,7 +5,6 @@ $c = $app->getContainer();
 
 $guard = new \Slim\Csrf\Guard();
 $guard->setFailureCallable(function ($request, $response, $next) {
-    //die("hola");
     //$request = $request->withAttribute("csrf_status", false);
     //$response =  $response->withRedirect($_SERVER['HTTP_REFERER']);
     //return $next($request, $response);
@@ -21,7 +20,6 @@ $app->add($guard);
 $c['csrf'] = function ($c) {
     $guard = new \Slim\Csrf\Guard();
 //    $guard->setFailureCallable(function ($request, $response, $next) {
-//        //die("hola");
 //        //$request = $request->withAttribute("csrf_status", false);
 //        //$response =  $response->withRedirect($_SERVER['HTTP_REFERER']);
 //        //return $next($request, $response);
@@ -87,10 +85,9 @@ $app->add(function ($request, $response, $next) use ($c) {
     $c->view->getEnvironment()->addGlobal("urlAdminCreateNews", $this->router->pathFor("adminCreateNews"));
     /*$c->view->getEnvironment()->addGlobal("urlAdminOpcache", $this->router->pathFor("adminOpcache"));*/
     $c->view->getEnvironment()->addGlobal("urlAdminDeleteNew", $this->router->pathFor("adminDeleteNew", ["id" => '']));
+    $c->view->getEnvironment()->addGlobal("urlAdminPhpinfo", $this->router->pathFor("adminPhpinfo"));
     //$c->view->getEnvironment()->addGlobal("urlUserLogin", $this->router->pathFor("userLogin"));
     //$c->view->getEnvironment()->addGlobal("urlUserJoin", $this->router->pathFor("userJoin"));
-
-
 
     $response = $next($request, $response);
     //$response->getBody()->write('AFTER');
