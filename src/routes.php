@@ -2,6 +2,8 @@
 
 // Routes
 
+use nullupload\DB;
+
 $app->get('/', function ($request, $response, $args) {
 
     // CSRF token name and value
@@ -12,10 +14,12 @@ $app->get('/', function ($request, $response, $args) {
 
     $settings = $this->get('settings')['nullupload'];
 
-    $totalsize = (int) file_get_contents(__DIR__ . "/../usedSpace");
+    $totalsize = (int) DB::getConfig(DB::$histoTotalFileSize);
 
-    $news = NewsQuery::create()->find();
-    $latestNew = $news->getLast();
+    $stm = DB::getDB()->prepare("select * from news order by dateCreation desc limit 1");
+    $stm->execute();
+
+    $latestNew = $stm->fetch();
 
     if ((int) $settings['maxLimit'] > $totalsize) {
         return $this->view->render($response, 'index.html', [
@@ -42,36 +46,30 @@ require("controllers/delete.php");
 
 require("controllers/admin.php");
 
-//require("controllers/users.php");
-
 $app->get('/news', function ($request, $response, $args) {
 
-    $news = NewsQuery::create()->orderByDatecreation(\Propel\Runtime\ActiveQuery\Criteria::DESC)->find();
+    $stm = DB::getDB()->prepare("select * from news order by dateCreation desc");
+    $stm->execute();
+
+    $news = $stm->fetchAll();
 
     return $this->view->render($response, 'news.html', [
                 'page' => 'news',
-                'news' => $news->toArray()
+                'news' => $news
     ]);
 })->setName('news');
 
 $app->get('/statistics', function ($request, $response, $args) {
 
-    $files = FilesQuery::create()
-            ->find();
-    
-    $nfiles = $files->count();
-    
-    $ndownloads = 0;
-    
-    //TODO with a SUM on a select
-    foreach($files as $file){
-        $ndownloads += $file->getNdownloads();
-    }
+    $stm = DB::getDB()->prepare("select count(*) as nfiles, sum(nDownloads) as ndownloads from files");
+    $stm->execute();
+
+    $nums = $stm->fetch();
     
     return $this->view->render($response, 'statistics.html', [
                 'page' => 'statistics',
-                'nfiles' => $nfiles,
-                'ndownloads' => $ndownloads
+                'nfiles' => $nums['nfiles'],
+                'ndownloads' => $nums['ndownloads']
     ]);
 })->setName('statistics');
 

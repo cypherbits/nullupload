@@ -10,11 +10,15 @@ $app->group('/_superadmin', function () {
     $this->map(['GET', 'POST'], "", function ($request, $response, $args) {
 
         if (SessionHelper::isAdminSession()) {
-            $files = FilesQuery::create()->orderByUploaddate(\Propel\Runtime\ActiveQuery\Criteria::DESC)->find();
-            $nfiles = $files->count();
-            $files = $files->toArray();
 
-            $usedSpace = (int) file_get_contents(__DIR__ . "/../../usedSpace") / (1000 * 1000);
+            $stm = DB::getDB()->prepare("select * from files order by uploadDate desc");
+            $stm->execute();
+
+            $files = $stm->fetchAll();
+
+            $nfiles = $stm->rowCount();
+
+            $usedSpace = (int) DB::getConfig(DB::$histoTotalFileSize) / (1000 * 1000);
             $maxSize = (int) $this->get('settings')['nullupload']['maxLimit'] / (1000 * 1000);
 
             return $this->view->render($response, 'admin/files-list.html', [
@@ -73,7 +77,12 @@ $app->group('/_superadmin', function () {
     $this->get('/download-{id:[a-z0-9]{8,10}}', function ($request, $response, $args) {
         if (SessionHelper::isAdminSession()) {
             $fileid = $args['id'];
-            $file = FilesQuery::create()->filterById($fileid)->findOne();
+
+            $stm = DB::getDB()->prepare("select * from files where id = ? limit 1");
+            $stm->bindParam(1,$fileid, PDO::PARAM_STR);
+            $stm->execute();
+
+            $file = $stm->fetch();
 
             IOHelper::download($file, __DIR__ . '/../' . '../uploads/', $this, true);
         }
@@ -82,7 +91,12 @@ $app->group('/_superadmin', function () {
     $this->get('/delete-{id:[a-z0-9]{8,10}}', function ($request, $response, $args) {
         if (SessionHelper::isAdminSession()) {
             $fileid = $args['id'];
-            $file = FilesQuery::create()->filterById($fileid)->findOne();
+
+            $stm = DB::getDB()->prepare("select * from files where id = ? limit 1");
+            $stm->bindParam(1,$fileid, PDO::PARAM_STR);
+            $stm->execute();
+
+            $file = $stm->fetch();
 
             $path = __DIR__ . '/../' . '../uploads/';
 
@@ -95,13 +109,18 @@ $app->group('/_superadmin', function () {
     $this->get('/deleteblock-{id:[a-z0-9]{8,10}}', function ($request, $response, $args) {
         if (SessionHelper::isAdminSession()) {
             $fileid = $args['id'];
-            $file = FilesQuery::create()->filterById($fileid)->findOne();
+
+            $stm = DB::getDB()->prepare("select * from files where id = ? limit 1");
+            $stm->bindParam(1,$fileid, PDO::PARAM_STR);
+            $stm->execute();
+
+            $file = $stm->fetch();
 
             $path = __DIR__ . '/../' . '../uploads/';
 
             IOHelper::delete($file, $path);
 
-            $fileHash = $file->getIntegrity();
+            $fileHash = $file['integrity'];
 
             $stm = DB::getDB()->prepare("insert into bannedFiles(fileHash) values(?)");
             $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
@@ -131,11 +150,14 @@ $app->group('/_superadmin', function () {
     $this->get('/news', function ($request, $response, $args) {
         if (SessionHelper::isAdminSession()) {
 
-            $news = NewsQuery::create()->orderByDatecreation()->find();
+            $stm = DB::getDB()->prepare("select * from news order by dateCreation desc");
+            $stm->execute();
+
+            $news = $stm->fetchAll();
 
             return $this->view->render($response, 'admin/news.html', [
                         'page' => 'news',
-                        'news' => $news->toArray()
+                        'news' => $news
             ]);
         } else {
             return $response->withRedirect($this->router->pathFor("admin"));
@@ -169,10 +191,12 @@ $app->group('/_superadmin', function () {
             $text = $request->getParam("txtNews");
 
             if (!empty($title) && !empty($text)) {
-                $news = new News();
-                $news->setTitle($title);
-                $news->setNewtext($text);
-                $news->save();
+
+                $stm = DB::getDB()->prepare("insert into news(title, newText, dateCreation) values(?, ?, NOW)");
+                $stm->bindParam(1,$title, PDO::PARAM_STR);
+                $stm->bindParam(2,$text, PDO::PARAM_STR);
+                $stm->execute();
+
             }
 
             return $this->view->render($response, 'admin/create-news.html', [
@@ -186,11 +210,9 @@ $app->group('/_superadmin', function () {
     $this->get('/deleteNew-{id}', function ($request, $response, $args) {
         if (SessionHelper::isAdminSession()) {
 
-            $new = NewsQuery::create()
-                    ->findById($args['id']);
-
-            $new->delete();
-
+            $stm = DB::getDB()->prepare("delete from news where id = ? limit 1");
+            $stm->bindParam(1,$args['id'], PDO::PARAM_INT);
+            $stm->execute();
 
             return $response->withRedirect($this->router->pathFor("adminNews"));
         } else {

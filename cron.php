@@ -1,21 +1,24 @@
 <?php
 
+use nullupload\DB;
+
 echo "\n==NULLUPLOAD CRON START ".date("Y-m-d H:i:s")." ==";
 
 require 'vendor/autoload.php';
-//$_SERVER['SERVER_NAME'] = "localhost";
-require 'src/propelconfig.php';
 
-$files = FilesQuery::create()->find();
+$stm = DB::getDB()->prepare("select * from files");
+$stm->execute();
+
+$files = $stm->fetchAll();
 
 foreach ($files as $file) {
-    if ($file->getDeletedate()->getTimestamp() < time() ||
-        (strtotime('+2 day', $file->getUploaddate()->getTimestamp()) < time() && (int) $file->getNdownloads() === 0) ||
-    (!empty($file->getLastdownload()) && strtotime('+100 day', $file->getLastdownload()->getTimestamp()) < time())) {
+    if ($file['deleteDate'] < time() ||
+        (strtotime('+2 day', $file['uploadDate']) < time() && (int) $file['nDownloads'] === 0) ||
+    (!empty($file['lastDownload']) && strtotime('+100 day', $file['lastDownload']) < time())) {
 
-        echo "\n->Deleting file id: " . $file->getId() . '... ';
+        echo "\n->Deleting file id: " . $file['id'] . '... ';
 
-        $path = "uploads/" . $file->getFilename();
+        $path = "uploads/" . $file['filename'];
 
         if (file_exists($path)) {
             unlink($path);
@@ -23,12 +26,14 @@ foreach ($files as $file) {
         } else {
             echo "Warning: file <" . $path . '> does not exist';
         }
-        $file->delete();
+        $stm = DB::getDB()->prepare("delete from files where id = ? limit 1");
+        $stm->bindParam(1,$file['id'], PDO::PARAM_INT);
+        $stm->execute();
         echo " done.";
     }
 }
 
 $totalsize = IOHelper::get_total_size("uploads");
-file_put_contents("usedSpace", $totalsize);
+DB::setConfig(DB::$histoTotalFileSize, $totalsize);
 
 echo "\n==NULLUPLOAD CRON END== \n";

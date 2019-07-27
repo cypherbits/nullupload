@@ -8,7 +8,7 @@ set_time_limit(851);
 
     $settings = $this->get('settings')['nullupload'];
 
-    $totalsize = (int) file_get_contents(__DIR__ . "/../../usedSpace");
+    $totalsize = (int) DB::getConfig(DB::$histoTotalFileSize);
 
     if ((int) $settings['maxLimit'] > $totalsize) {
 
@@ -64,22 +64,15 @@ set_time_limit(851);
                     $extension = "";
                 }
 
-                $file = new Files();
-                $file->setId($id);
                 if ($request->getParam('checkChangeFilename') == 'yes') {
-                    $file->setOrigname(null);
-                    $file->setExtension($extension);
-                } else {
-                    $file->setOrigname($origname);
-                    $file->setExtension("none");
+                    $origname = null;
+                } else{
+                    $extension = "none";
                 }
-                $file->setFilename($filename);
-                $file->setUploaddate("now");
-                $file->setType(substr($results['mime'], 0, 64));
+
                 if ($request->getParam('checkWithPass') == 'yes') {
                     $password = IOHelper::getRandomName(7);
                     $hpassword = hash("sha256", $password);
-                    $file->setPassword($hpassword);
 
                     $downloadUrlWithPass = 'http://' . $_SERVER['SERVER_NAME'] . $this->router->pathFor("download", [
                                 'id' => $id,
@@ -87,12 +80,12 @@ set_time_limit(851);
                     ]);
                 } else {
                     $downloadUrlWithPass = null;
+                    $hpassword = null;
                 }
+
                 $password = isset($password) ? $password : 'No password';
 
                 $deletePassword = IOHelper::getRandomName(7);
-
-                $file->setDeletepassword(hash("sha256", $deletePassword));
 
                 $selectDelete = $request->getParam('selectDelete');
 
@@ -122,22 +115,23 @@ set_time_limit(851);
                         $deleteDate = strtotime('+1 days', time());
                 }
 
-                $file->setDeletedate($deleteDate);
-
                 $fileHash = hash_file("sha256", __DIR__ . '/../' . '../uploads/' . $filename);
 
-                $file->setIntegrity($fileHash);
-
-                $file->save();
-
-                /* TODO: better, Update file size*/
-                $fileId = $file->getId();
                 $fileSize = filesize(__DIR__ . '/../' . '../uploads/' . $filename);
 
-                $stm = DB::getDB()->prepare("update files set fileSize = ? where id = ?");
-                $stm->bindParam(1,$fileSize, PDO::PARAM_INT);
-                $stm->bindParam(2,$fileId, PDO::PARAM_INT);
+                $stm = DB::getDB()->prepare("insert into files(id, origName, filename, extension, uploadDate, type, password, deletePassword, deleteDate, integrity, fileSize) values(?, ?, ?, ?, NOW, ?, ?, ?, ?, ?, ?)");
+                $stm->bindParam(1,$id, PDO::PARAM_STR);
+                $stm->bindParam(2,$origname, PDO::PARAM_STR);
+                $stm->bindParam(3,$filename, PDO::PARAM_STR);
+                $stm->bindParam(4,$extension, PDO::PARAM_STR);
+                $stm->bindParam(5,substr($results['mime'], 0, 64), PDO::PARAM_STR);
+                $stm->bindParam(6,$hpassword, PDO::PARAM_STR);
+                $stm->bindParam(7,hash("sha256", $deletePassword), PDO::PARAM_STR);
+                $stm->bindParam(8,$deleteDate);
+                $stm->bindParam(9,$fileHash, PDO::PARAM_STR);
+                $stm->bindParam(10,$fileSize, PDO::PARAM_INT);
                 $stm->execute();
+
 
                 //$downloadUrl = "https://" . $_SERVER['SERVER_NAME'] . "/download-" . $id;
                 $downloadUrl = 'http://' . $_SERVER['SERVER_NAME'] . $this->router->pathFor("download", [
@@ -151,7 +145,7 @@ set_time_limit(851);
                 ]);
 
                 $totalsize = IOHelper::get_total_size(__DIR__ . "/../../uploads");
-                file_put_contents(__DIR__ . "/../../usedSpace", $totalsize);
+                DB::setConfig(DB::$histoTotalFileSize, $totalsize);
 
 
                 $deleteDate = IOHelper::getStringCountdownDelete($deleteDate);

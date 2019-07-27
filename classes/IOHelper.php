@@ -1,5 +1,7 @@
 <?php
 
+use nullupload\DB;
+
 /**
  * Description of IOHelper
  *
@@ -51,20 +53,22 @@ class IOHelper {
         exit;
     }
 
-    public static function delete(Files $file, $path) {
+    public static function delete($file, $path) {
 
-        $fullpath = $path . $file->getFilename();
+        $fullpath = $path . $file['filename'];
 
         if (file_exists($fullpath)) {
             unlink($fullpath);
         }
 
-        $file->delete();
+        $stm = DB::getDB()->prepare("delete from files where id = ? limit 1");
+        $stm->bindParam(1,$file['id'], PDO::PARAM_STR);
+        $stm->execute();
 
         //recount size
 
         $totalsize = IOHelper::get_total_size($path);
-        file_put_contents($path . '../' . "usedSpace", $totalsize);
+        DB::setConfig(DB::$histoTotalFileSize, $totalsize);
 
         return true;
     }

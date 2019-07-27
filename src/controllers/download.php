@@ -1,5 +1,7 @@
 <?php
 
+use nullupload\DB;
+
 $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,14}}]', function ($request, $response, $args) {
 
     // CSRF token name and value
@@ -8,20 +10,23 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
     $name = $request->getAttribute($nameKey);
     $value = $request->getAttribute($valueKey);
 
-    $fileid = $args['id'];
-    $file = FilesQuery::create()->filterById($fileid)->findOne();
+    $stm = DB::getDB()->prepare("select * from files where id = ? limit 1");
+    $stm->bindParam(1,$args['id'], PDO::PARAM_STR);
+    $stm->execute();
+
+    $file = $stm->fetch();
 
     if ($file != null) {
 
-        $filename = $file->getFilename();
+        $filename = $file['filename'];
 
         if (file_exists(__DIR__ . '/../' . '../uploads/' . $filename)) {
 
-            $needspassword = (!empty($file->getPassword())) ? true : false;
+            $needspassword = (!empty($file['password'])) ? true : false;
 
-            $downloadfilename = !empty($file->getOrigname()) ? $file->getOrigname() : $file->getFilename() . '.' . $file->getExtension();
+            $downloadfilename = !empty($file['origName']) ? $file['origName'] : $file['filename'] . '.' . $file['extension'];
 
-            $deleteDate = IOHelper::getStringCountdownDelete($file->getDeletedate()->getTimestamp());
+            $deleteDate = IOHelper::getStringCountdownDelete($file['deleteDate']);
 
             if (!$needspassword) {
                 if ($request->getParam('download') == "yes") {
@@ -35,10 +40,10 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
                                 'name' => $name,
                                 'valueKey' => $valueKey,
                                 'value' => $value,
-                                'filetype' => $file->getType(),
+                                'filetype' => $file['type'],
                                 'filename' => $downloadfilename,
                                 'filesize' => filesize(__DIR__ . '/../' . '../uploads/' . $filename),
-                                'filesha1' => $file->getIntegrity(),
+                                'filesha1' => $file['integrity'],
                                 'deleteDate' => $deleteDate
                     ]);
                 }
