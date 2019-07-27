@@ -6,6 +6,8 @@ v1.0:
 -admin: config page
 -admin:pagination with JS table.
 
+-try catch, make a transactional upload.
+
 -settings page on admin panel to disable uploads.
 -docker deploy for tests?
 -folder size on database instead of a file.

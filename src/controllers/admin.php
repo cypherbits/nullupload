@@ -192,7 +192,7 @@ $app->group('/_superadmin', function () {
 
             if (!empty($title) && !empty($text)) {
 
-                $stm = DB::getDB()->prepare("insert into news(title, newText, dateCreation) values(?, ?, NOW)");
+                $stm = DB::getDB()->prepare("insert into news(title, newText, dateCreation) values(?, ?, NOW())");
                 $stm->bindParam(1,$title, PDO::PARAM_STR);
                 $stm->bindParam(2,$text, PDO::PARAM_STR);
                 $stm->execute();

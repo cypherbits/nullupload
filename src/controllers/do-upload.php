@@ -117,9 +117,21 @@ set_time_limit(851);
 
                 $fileHash = hash_file("sha256", __DIR__ . '/../' . '../uploads/' . $filename);
 
+                $stm = DB::getDB()->prepare("select count(*) as nhash from bannedFiles where fileHash = ? limit 1");
+                $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
+                $stm->execute();
+
+                $nhash = (int) $stm->fetch()['nhash'];
+
+                if ($nhash > 0){
+                    die("This file is banned, you cannot upload it.");
+
+                    //TODO:
+                }
+
                 $fileSize = filesize(__DIR__ . '/../' . '../uploads/' . $filename);
 
-                $stm = DB::getDB()->prepare("insert into files(id, origName, filename, extension, uploadDate, type, password, deletePassword, deleteDate, integrity, fileSize) values(?, ?, ?, ?, NOW, ?, ?, ?, ?, ?, ?)");
+                $stm = DB::getDB()->prepare("insert into files(id, origName, filename, extension, uploadDate, type, password, deletePassword, deleteDate, integrity, fileSize) values(?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)");
                 $stm->bindParam(1,$id, PDO::PARAM_STR);
                 $stm->bindParam(2,$origname, PDO::PARAM_STR);
                 $stm->bindParam(3,$filename, PDO::PARAM_STR);
@@ -127,7 +139,7 @@ set_time_limit(851);
                 $stm->bindParam(5,substr($results['mime'], 0, 64), PDO::PARAM_STR);
                 $stm->bindParam(6,$hpassword, PDO::PARAM_STR);
                 $stm->bindParam(7,hash("sha256", $deletePassword), PDO::PARAM_STR);
-                $stm->bindParam(8,$deleteDate);
+                $stm->bindParam(8,date("Y-m-d H:i:s", $deleteDate));
                 $stm->bindParam(9,$fileHash, PDO::PARAM_STR);
                 $stm->bindParam(10,$fileSize, PDO::PARAM_INT);
                 $stm->execute();

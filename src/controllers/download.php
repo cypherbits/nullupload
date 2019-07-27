@@ -26,7 +26,7 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
 
             $downloadfilename = !empty($file['origName']) ? $file['origName'] : $file['filename'] . '.' . $file['extension'];
 
-            $deleteDate = IOHelper::getStringCountdownDelete($file['deleteDate']);
+            $deleteDate = IOHelper::getStringCountdownDelete(strtotime($file['deleteDate']));
 
             if (!$needspassword) {
                 if ($request->getParam('download') == "yes") {

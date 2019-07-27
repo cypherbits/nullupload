@@ -9,21 +9,22 @@ use nullupload\DB;
  */
 class IOHelper {
 
-    public static function download(Files $file, $directory, $rut, $admin = false) {
+    public static function download($file, $directory, $rut, $admin = false) {
 
         if (!$admin) {
-            $file->setNdownloads($file->getNdownloads() + 1);
-            $file->setLastdownload(time());
-            $file->save();
+
+            $stm = DB::getDB()->prepare("update files set nDownloads = nDownloads + 1, lastDownload = NOW() where id = ? limit 1");
+            $stm->bindParam(1,$file['id'], PDO::PARAM_STR);
+            $stm->execute();
         }
 
-        $downloadfilename = !empty($file->getOrigname()) ? $file->getOrigname() : $file->getFilename() . '.' . $file->getExtension();
-        $downloadpath = $directory . $file->getFilename();
+        $downloadfilename = !empty($file['origName']) ? $file['origName'] : $file['filename'] . '.' . $file['extension'];
+        $downloadpath = $directory . $file['filename'];
 
         $filesize = filesize($downloadpath);
 
         header('Content-Description: File Transfer');
-        header('Content-Type: ' . $file->getType());
+        header('Content-Type: ' . $file['type']);
         header('Content-Disposition: attachment; filename="' . $downloadfilename . '"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate');

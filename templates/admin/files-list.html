@@ -44,9 +44,9 @@
                     <td>{{ file.deleteDate | date("Y-m-d H:i:s")}}</td>
                    <!-- <td><span title="{{file.Deletepassword}}">ok</span></td>-->
                     <td><span title="{{file.integrity}}">sha256</span></td>
-                    <td><a href="{{urlAdminDownload}}{{file.Id}}">Download</a> |
-                        <a href="{{urlAdminDelete}}{{file.Id}}" onclick="return confirm('Delete this file?');">Delete</a> |
-                        <a href="path_for('adminDeleteAndBlock', { 'id': {{file.Id}})" onclick="return confirm('Delete and Block this file?');">D&Block</a>
+                    <td><a href="{{urlAdminDownload}}{{file.id}}">Download</a> |
+                        <a href="{{urlAdminDelete}}{{file.id}}" onclick="return confirm('Delete this file?');">Delete</a> |
+                        <a href="{{path_for('adminDeleteAndBlock', { 'id': file.id } ) }}" onclick="return confirm('Delete and Block this file?');">D&Block</a>
                     </td>
                 </tr>
                 {% endfor %}
