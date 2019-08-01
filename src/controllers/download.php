@@ -42,7 +42,7 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
                                 'value' => $value,
                                 'filetype' => $file['type'],
                                 'filename' => $downloadfilename,
-                                'filesize' => filesize(__DIR__ . '/../' . '../uploads/' . $filename),
+                                'filesize' => $file['fileSize'],
                                 'filesha256' => $file['integrity'],
                                 'deleteDate' => $deleteDate
                     ]);
@@ -86,7 +86,7 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
                                         'value' => $value,
                                         'filetype' => $file['type'],
                                         'filename' => $downloadfilename,
-                                        'filesize' => filesize(__DIR__ . '/../' . '../uploads/' . $filename),
+                                        'filesize' => $file['fileSize'],
                                         'filesha256' => $file['integrity'],
                                         'deleteDate' => $deleteDate
                             ]);
