@@ -43,7 +43,7 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
                                 'filetype' => $file['type'],
                                 'filename' => $downloadfilename,
                                 'filesize' => filesize(__DIR__ . '/../' . '../uploads/' . $filename),
-                                'filesha1' => $file['integrity'],
+                                'filesha256' => $file['integrity'],
                                 'deleteDate' => $deleteDate
                     ]);
                 }

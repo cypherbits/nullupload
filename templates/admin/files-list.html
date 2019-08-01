@@ -59,5 +59,13 @@
 {% endblock %}
 
 {% block addtobody %}
-
+<script>
+            $(document).ready(function () {
+                $('table').DataTable({
+                    paging: false,
+                    lengthChange: false,
+                    order: [4,"desc"]
+                });
+            });
+</script>
 {% endblock %}
