@@ -1,5 +1,12 @@
 TODO LIST:
 
+- Fix only variables should be passed by reference on do-upload
+- Fix allowing to upload clone files. Do not allow, just block it.
+- Fix deleting a blocked hash file.
+
+
+
+
 v1.0:
 -admin: new column of file size.
 -admin: ban file hashes

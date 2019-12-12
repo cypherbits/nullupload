@@ -21,7 +21,7 @@ $app->get('/', function ($request, $response, $args) {
 
     $latestNew = $stm->fetch();
 
-    if ((int) $settings['maxLimit'] > $totalsize) {
+    if ((int) $settings['maxLimit'] >= $totalsize) {
         return $this->view->render($response, 'index.html', [
                     'page' => 'home',
                     'nameKey' => $nameKey,

@@ -42,8 +42,7 @@
                     <td>{{ file.type}}</td>
                     <td>{% if file.password is not empty %} <span title="{{file.password}}">yes</span> {% endif %}</td>
                     <td>{{ file.deleteDate | date("Y-m-d H:i:s")}}</td>
-                   <!-- <td><span title="{{file.Deletepassword}}">ok</span></td>-->
-                    <td><span title="{{file.integrity}}">sha256</span></td>
+                    <td><a onclick="return alert('{{file.integrity}}');"><span title="{{file.integrity}}">sha256</span></a></td>
                     <td><a href="{{urlAdminDownload}}{{file.id}}">Download</a> |
                         <a href="{{urlAdminDelete}}{{file.id}}" onclick="return confirm('Delete this file?');">Delete</a> |
                         <a href="{{path_for('adminDeleteAndBlock', { 'id': file.id } ) }}" onclick="return confirm('Delete and Block this file?');">D&Block</a>

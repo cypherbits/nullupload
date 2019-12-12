@@ -20,7 +20,7 @@ return [
             'root' => __DIR__ . '/',
             'uploadPath' => '../uploads',
             'maxFileSize' => 101,
-            'maxLimit' => 1024 * 1024 * 1024 * 12,
+            'maxLimit' => 1000 * 1000 * 1000 * 8,
             'mimesForb' => [
                 'application/x-msdownload',
                 'application/x-ms-installer',
