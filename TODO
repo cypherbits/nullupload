@@ -1,9 +1,8 @@
 TODO LIST:
 
 - Fix only variables should be passed by reference on do-upload
-- Fix allowing to upload clone files. Do not allow, just block it.
+- make this in just one query: duplicate upload. WHAT EXACTLY DO??
 - Fix deleting a blocked hash file.
-
 
 
 

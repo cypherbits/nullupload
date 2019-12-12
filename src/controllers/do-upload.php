@@ -117,16 +117,31 @@ set_time_limit(851);
 
                 $fileHash = hash_file("sha256", __DIR__ . '/../' . '../uploads/' . $filename);
 
+                //TODO: make this just one query
                 $stm = DB::getDB()->prepare("select count(*) as nhash from bannedFiles where fileHash = ? limit 1");
                 $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
                 $stm->execute();
 
                 $nhash = (int) $stm->fetch()['nhash'];
 
-                if ($nhash > 0){
-                    die("This file is banned, you cannot upload it.");
+                $stm = DB::getDB()->prepare("select count(*) as nhashup from files where integrity = ? limit 1");
+                $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
+                $stm->execute();
 
-                    //TODO:
+                $nhashup = (int) $stm->fetch()['nhash'];
+
+                if ($nhash > 0){
+                    return $this->view->render($response, 'download-error.html', [
+                        'page' => 'download',
+                        'errormsg' => 'This file is banned, you cannot upload it.'
+                    ]);
+                }
+
+                if ($nhashup > 0){
+                    return $this->view->render($response, 'download-error.html', [
+                        'page' => 'download',
+                        'errormsg' => 'This file is already uploaded by someone else, sorry.'
+                    ]);
                 }
 
                 $fileSize = filesize(__DIR__ . '/../' . '../uploads/' . $filename);
