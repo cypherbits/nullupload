@@ -117,18 +117,11 @@ set_time_limit(851);
 
                 $fileHash = hash_file("sha256", __DIR__ . '/../' . '../uploads/' . $filename);
 
-                //TODO: make this just one query
                 $stm = DB::getDB()->prepare("select count(*) as nhash from bannedFiles where fileHash = ? limit 1");
                 $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
                 $stm->execute();
 
                 $nhash = (int) $stm->fetch()['nhash'];
-
-                $stm = DB::getDB()->prepare("select count(*) as nhashup from files where integrity = ? limit 1");
-                $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
-                $stm->execute();
-
-                $nhashup = (int) $stm->fetch()['nhash'];
 
                 if ($nhash > 0){
                     return $this->view->render($response, 'download-error.html', [
@@ -137,7 +130,20 @@ set_time_limit(851);
                     ]);
                 }
 
-                if ($nhashup > 0){
+                //If we want to upload a file already uploaded check the number of downloads: if 0 user may have lost the link then delete the older file and allow upload, if more than 0 block upload
+                $stm = DB::getDB()->prepare("select id, nDownloads from files where integrity = ? limit 1");
+                $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
+                $stm->execute();
+
+                $eFile = $stm->fetch();
+
+
+                if ((int)$eFile['nDownloads'] === 0){
+                    $path = __DIR__ . "/../../uploads/";
+
+                    IOHelper::delete($eFile, $path);
+
+                }else{
                     return $this->view->render($response, 'download-error.html', [
                         'page' => 'download',
                         'errormsg' => 'This file is already uploaded by someone else, sorry.'
@@ -159,13 +165,10 @@ set_time_limit(851);
                 $stm->bindParam(10,$fileSize, PDO::PARAM_INT);
                 $stm->execute();
 
-
-                //$downloadUrl = "https://" . $_SERVER['SERVER_NAME'] . "/download-" . $id;
                 $downloadUrl = 'http://' . $_SERVER['SERVER_NAME'] . $this->router->pathFor("download", [
                             'id' => $id
                 ]);
 
-                //$deleteUrl = "https://" . $_SERVER['SERVER_NAME'] . "/delete-" . $id . "-" . $deletePassword;
                 $deleteUrl = 'http://' . $_SERVER['SERVER_NAME'] . $this->router->pathFor("delete", [
                             'id' => $id,
                             'deletePassword' => $deletePassword
@@ -173,7 +176,6 @@ set_time_limit(851);
 
                 $totalsize = IOHelper::get_total_size(__DIR__ . "/../../uploads");
                 DB::setConfig(DB::$histoTotalFileSize, $totalsize);
-
 
                 $deleteDate = IOHelper::getStringCountdownDelete($deleteDate);
 
