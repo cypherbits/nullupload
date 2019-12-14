@@ -131,7 +131,7 @@ set_time_limit(851);
                 }
 
                 //If we want to upload a file already uploaded check the number of downloads: if 0 user may have lost the link then delete the older file and allow upload, if more than 0 block upload
-                $stm = DB::getDB()->prepare("select id, nDownloads from files where integrity = ? limit 1");
+                $stm = DB::getDB()->prepare("select id, nDownloads, filename from files where integrity = ? limit 1");
                 $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
                 $stm->execute();
 
