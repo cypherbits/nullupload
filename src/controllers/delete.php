@@ -17,7 +17,7 @@ $app->get('/delete-{id:[a-z0-9]{8,10}}-{deletePassword:[a-z0-9]{8,14}}', functio
 
             if (IOHelper::delete($file, $path)) {
                 return $this->view->render($response, 'delete.html', [
-                            'msg' => 'File with id ' . $file->getId() . ' deleted'
+                            'msg' => 'File with id ' . $file['id'] . ' deleted'
                 ]);
             }
         }
