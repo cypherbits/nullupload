@@ -135,19 +135,20 @@ set_time_limit(851);
                 $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
                 $stm->execute();
 
-                $eFile = $stm->fetch();
+                if ($stm->rowCount() > 0){
+                    $eFile = $stm->fetch();
 
+                    if ($eFile['nDownloads'] === 0){
+                        $path = __DIR__ . "/../../uploads/";
 
-                if ((int)$eFile['nDownloads'] === 0){
-                    $path = __DIR__ . "/../../uploads/";
+                        IOHelper::delete($eFile, $path);
 
-                    IOHelper::delete($eFile, $path);
-
-                }else{
-                    return $this->view->render($response, 'download-error.html', [
-                        'page' => 'download',
-                        'errormsg' => 'This file is already uploaded by someone else, sorry.'
-                    ]);
+                    }else{
+                        return $this->view->render($response, 'download-error.html', [
+                            'page' => 'download',
+                            'errormsg' => 'This file is already uploaded by someone else, sorry.'
+                        ]);
+                    }
                 }
 
                 $fileSize = filesize(__DIR__ . '/../' . '../uploads/' . $filename);
