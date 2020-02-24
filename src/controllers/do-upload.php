@@ -74,7 +74,7 @@ set_time_limit(851);
                     $password = IOHelper::getRandomName(7);
                     $hpassword = hash("sha256", $password);
 
-                    $downloadUrlWithPass = 'http://' . $_SERVER['SERVER_NAME'] . $this->router->pathFor("download", [
+                    $downloadUrlWithPass = IOHelper::getProto() . $_SERVER['SERVER_NAME'] . $this->router->pathFor("download", [
                                 'id' => $id,
                                 'password' => $password
                     ]);
@@ -166,11 +166,11 @@ set_time_limit(851);
                 $stm->bindParam(10,$fileSize, PDO::PARAM_INT);
                 $stm->execute();
 
-                $downloadUrl = 'http://' . $_SERVER['SERVER_NAME'] . $this->router->pathFor("download", [
+                $downloadUrl = IOHelper::getProto() . $_SERVER['SERVER_NAME'] . $this->router->pathFor("download", [
                             'id' => $id
                 ]);
 
-                $deleteUrl = 'http://' . $_SERVER['SERVER_NAME'] . $this->router->pathFor("delete", [
+                $deleteUrl = IOHelper::getProto() . $_SERVER['SERVER_NAME'] . $this->router->pathFor("delete", [
                             'id' => $id,
                             'deletePassword' => $deletePassword
                 ]);

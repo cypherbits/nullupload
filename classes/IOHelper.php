@@ -9,6 +9,15 @@ use nullupload\DB;
  */
 class IOHelper {
 
+    private static function isHTTPS():bool {
+        return
+            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+            || $_SERVER['SERVER_PORT'] == 443;
+    }
+    public static function getProto(){
+        return self::isHTTPS() ? 'https://' : 'http://';
+    }
+
     public static function download($file, $directory, $rut, $admin = false) {
 
         if (!$admin) {

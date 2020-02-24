@@ -1,10 +1,20 @@
 TODO LIST:
 
+7f699cee8c6da5f44f1d95e82bcf
+
+
+[2019-10-01 20:38:21] nullupload-app.ERROR: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '0708af533ba567e5378398a2e623999160e9e5f3e048f35447ebe4e3beab291e'
+for key 'PRIMARY' on /var/www/nullupload/src/controllers/admin.php at 127
+
+Attack: we have to check the extension lenght
+nullupload-app.ERROR: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'extension' at row 1 on /var/www/nullupload/src/controllers/do-upload.php at 145
+
+Attack: sending xml request body
+nullupload-app.ERROR: Call to undefined function Slim\Http\simplexml_load_string() on /var/www/nullupload/vendor/slim/slim/Slim/Http/Request.php at 230
+
+
 - Fix only variables should be passed by reference on do-upload
-- make this in just one query: duplicate upload. WHAT EXACTLY DO??
 - Fix deleting a blocked hash file.
-
-
 
 v1.0:
 -admin: new column of file size.
