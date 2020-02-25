@@ -9,6 +9,8 @@ class SessionHelper {
 
     /*admin username, cleartext*/
     public static $adminUser = "administrator";
+    /*admin directory URL*/
+    public static $adminDirectory = "_superadmin";
     /*admin password, password_hash(cleartext,  PASSWORD_BCRYPT)*/
     public static $adminPassword = '$2y$10$D7FE2iJ8F7pPgz5rDerap.Mpm6dSFcpoWd2Pg299q6g7kxCSKHcwy';
     //Cookie name for the session, overwriting "PHPSESSID"

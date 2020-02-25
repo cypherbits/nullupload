@@ -5,7 +5,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /*Change this to change the admin access route*/
-$app->group('/_superadmin', function () {
+$app->group('/'.SessionHelper::$adminDirectory, function () {
 
     $this->map(['GET', 'POST'], "", function ($request, $response, $args) {
 
