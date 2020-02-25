@@ -69,7 +69,10 @@ $app->get('/statistics', function ($request, $response, $args) {
     return $this->view->render($response, 'statistics.html', [
                 'page' => 'statistics',
                 'nfiles' => $nums['nfiles'],
-                'ndownloads' => $nums['ndownloads']
+                'ndownloads' => $nums['ndownloads'],
+                'totalFileSize' => DB::getConfig(DB::$histoTotalFileSize),
+                'totalFilesUploaded' => DB::getConfig(DB::$histoTotalFileUpload),
+                'totalFilesDownloaded' => DB::getConfig(DB::$histoTotalFileDownloads)
     ]);
 })->setName('statistics');
 

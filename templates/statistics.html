@@ -7,23 +7,43 @@
 {% block page %}
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <div class="panel-title">Some stadistics about this site</div>
+        <div class="panel-title">Statistics about online files</div>
     </div>
     <table class="table">
         <tr>
             <td>Number of files online</td>
             <td>{{nfiles}}</td>
         </tr>
-                <tr>
+        <tr>
             <td>Number of downloads from online files</td>
             <td>{{ndownloads}}</td>
+        </tr>
+        <tr>
+            <td>Total size of files</td>
+            <td>{{totalFileSize}}</td>
         </tr>
     </table>
 </div>
 
-    <p>
-        Please, note that we do not keep a counter for a total uploaded files or total number of downloads. This numbers are only from online files.
-    </p>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">Total statistics</div>
+    </div>
+    <table class="table">
+        <tr>
+            <td>Total of files uploaded</td>
+            <td>{{totalFilesUploaded}}</td>
+        </tr>
+        <tr>
+            <td>Total of files downloaded</td>
+            <td>{{totalFilesDownloaded}}</td>
+        </tr>
+    </table>
+</div>
+
+<p>
+    Please, note that we do not keep a counter for a total uploaded files or total number of downloads. This numbers are only from online files.
+</p>
 {% endblock %}
 
 {% block addtobody %}

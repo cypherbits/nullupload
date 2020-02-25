@@ -178,6 +178,10 @@ set_time_limit(851);
                 $totalsize = IOHelper::get_total_size(__DIR__ . "/../../uploads");
                 DB::setConfig(DB::$histoTotalFileSize, $totalsize);
 
+                $totalFilesUploaded = (int) DB::getConfig(DB::$histoTotalFileUpload);
+                $totalFilesUploaded += 1;
+                DB::setConfig(DB::$histoTotalFileUpload, $totalFilesUploaded);
+
                 $deleteDate = IOHelper::getStringCountdownDelete($deleteDate);
 
                 return $this->view->render($response, 'upload.html', [

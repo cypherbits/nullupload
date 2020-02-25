@@ -25,6 +25,10 @@ class IOHelper {
             $stm = DB::getDB()->prepare("update files set nDownloads = nDownloads + 1, lastDownload = NOW() where id = ? limit 1");
             $stm->bindParam(1,$file['id'], PDO::PARAM_STR);
             $stm->execute();
+
+            $totalFilesDownloaded = (int) DB::getConfig(DB::$histoTotalFileDownloads);
+            $totalFilesDownloaded += 1;
+            DB::setConfig(DB::$histoTotalFileDownloads, $totalFilesDownloaded);
         }
 
         $downloadfilename = !empty($file['origName']) ? $file['origName'] : $file['filename'] . '.' . $file['extension'];

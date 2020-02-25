@@ -40,24 +40,6 @@ class DB
     }
 
     public static function setConfig(string $name, string $value):void{
-        /*$stm = DB::getDB()->prepare("select count(*) as nconfig from config where name = ? limit 1");
-        $stm->bindParam(1,$name, PDO::PARAM_STR);
-        $stm->execute();
-
-        if ($stm->fetch()['nconfig'] > 0){
-            //update
-            $stm = DB::getDB()->prepare("update config set value = ? where name = ?");
-            $stm->bindParam(1,$value, PDO::PARAM_STR);
-            $stm->bindParam(2,$name, PDO::PARAM_STR);
-            $stm->execute();
-        }else{
-            //insert
-            $stm = DB::getDB()->prepare("insert into config(name, value) values(?, ?)");
-            $stm->bindParam(1,$name, PDO::PARAM_STR);
-            $stm->bindParam(2,$value, PDO::PARAM_STR);
-            $stm->execute();
-        }*/
-
         $stm = DB::getDB()->prepare("INSERT INTO config (name, value) VALUES(?, ?) ON DUPLICATE KEY UPDATE value=?");
         $stm->bindParam(1,$name, PDO::PARAM_STR);
         $stm->bindParam(2,$value, PDO::PARAM_STR);
