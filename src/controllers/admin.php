@@ -122,7 +122,7 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
 
             $fileHash = $file['integrity'];
 
-            $stm = DB::getDB()->prepare("insert into bannedFiles(fileHash) values(?)");
+            $stm = DB::getDB()->prepare("insert into bannedFiles(fileHash) values(?) on duplicate key update fileHash=fileHash");
             $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
             $stm->execute();
         }
