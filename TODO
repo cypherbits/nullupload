@@ -4,12 +4,9 @@ TODO LIST:
 
 
 
-
-Attack: we have to check the extension lenght
-nullupload-app.ERROR: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'extension' at row 1 on /var/www/nullupload/src/controllers/do-upload.php at 145
-
 Attack: sending xml request body
 nullupload-app.ERROR: Call to undefined function Slim\Http\simplexml_load_string() on /var/www/nullupload/vendor/slim/slim/Slim/Http/Request.php at 230
+https://github.com/slimphp/Slim-Http/issues/106
 
 
 - Fix only variables should be passed by reference on do-upload
