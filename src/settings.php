@@ -46,7 +46,13 @@ return [
                 'application/x-python',
                 'application/vnd.android.package-archive',
                 'application/x-executable'
-            ]
+            ],
+            'admin' => [
+                'directory' => '',
+                'user' => '',
+                'password' => ''
+            ],
+            'enableFileEncryption' => false
         ],
         'database' => [
             'server' => 'localhost',

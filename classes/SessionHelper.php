@@ -3,7 +3,7 @@
 /**
  * Description of UserSession
  *
- * @author juanjo
+ * @author cypherbits
  */
 class SessionHelper {
 

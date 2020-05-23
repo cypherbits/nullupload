@@ -3,8 +3,8 @@
     "description": "PHP file hosting. Source code of nullupload.com",
     "authors": [
         {
-            "name": "juanjo",
-            "email": "juanjo@avanix.es"
+            "name": "cypherbits",
+            "email": "info@avanix.es"
         }
     ],
     "require": {

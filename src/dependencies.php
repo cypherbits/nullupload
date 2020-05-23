@@ -48,5 +48,10 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+$settings = $container->get('settings')['nullupload']['admin'];
+SessionHelper::$adminDirectory = $settings['directory'];
+SessionHelper::$adminUser = $settings['user'];
+SessionHelper::$adminPassword = $settings['password'];
+
 SessionHelper::init();
 SessionHelper::session_start();

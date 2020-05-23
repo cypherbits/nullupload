@@ -5,7 +5,7 @@ use nullupload\DB;
 /**
  * Description of IOHelper
  *
- * @author juanjo
+ * @author cypherbits
  */
 class IOHelper {
 
