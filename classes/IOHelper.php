@@ -148,4 +148,12 @@ class IOHelper {
         return $deleteDate;
     }
 
+    public static function encryptFile($file, $password, $iv){
+
+    }
+
+    public static function decryptFile($file, $password, $iv){
+
+    }
+
 }
