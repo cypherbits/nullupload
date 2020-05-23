@@ -73,7 +73,7 @@ class SessionHelper {
     }
 
     public static function isAdminSession() {
-        if (self::isActiveSession() && isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] != null && $_SESSION['isAdmin'] == "yeah") {
+        if (self::isActiveSession() && isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] != null && $_SESSION['isAdmin'] === "yeah") {
             return true;
         }
         return false;
@@ -108,13 +108,13 @@ class SessionHelper {
         if (isset($_SESSION[self::$_SessionVar]) && !empty($_SESSION[self::$_SessionVar]) && $_SESSION[self::$_SessionVar] instanceof session) {
 
             if ($checkIP) {
-                if (self::getSession()->get_ip() != self::_getClientIP()) {
+                if (self::getSession()->get_ip() !== self::_getClientIP()) {
                     return false;
                 }
             }
 
             if ($checkUserAgent) {
-                if (self::getSession()->get_useragent() != self::_getClientUserAgent()) {
+                if (self::getSession()->get_useragent() !== self::_getClientUserAgent()) {
                     return false;
                 }
             }
