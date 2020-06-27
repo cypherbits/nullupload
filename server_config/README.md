@@ -1,1 +1,0 @@
-Example server configuration files:

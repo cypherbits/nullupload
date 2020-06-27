@@ -1,4 +1,4 @@
-how to configure this directory on the server
+#how to configure this directory on the server
 
 <Directory /home/me/www/upload/>
             # Important for security, prevents someone from

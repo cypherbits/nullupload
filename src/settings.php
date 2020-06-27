@@ -2,7 +2,7 @@
 
 return [
     'settings' => [
-        'displayErrorDetails' => ($_SERVER['SERVER_NAME'] == "localhost") ? true : false, // set to false in production
+        'displayErrorDetails' => ($_SERVER['SERVER_NAME'] === "localhost") ? true : false, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
         // Monolog settings
         'logger' => [
@@ -11,7 +11,7 @@ return [
             'level' => Monolog\Logger::DEBUG,
         ],
         'twigSettings' => [
-            'enableTwigDebug' => ($_SERVER['SERVER_NAME'] == "localhost") ? true : false,
+            'enableTwigDebug' => ($_SERVER['SERVER_NAME'] === "localhost") ? true : false,
             'twigTemplatesPath' => __DIR__ . '/../templates/',
             'twigCacheTemplatesPath' => __DIR__ . '/../_tcache/'
         ]
