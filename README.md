@@ -15,3 +15,4 @@ We will be using Docker containers.
 3. Change uploads/.htaccess file to reflect your directory.
 4. Change classes/SessionHelper.php to set the admin username and password. (Username: cleartext, Password: hash sha512)
 5. User Let's Encrypt and Strict HSTS to keep your site safe.
+6. Setup a cron on your server to execute cron.sh (as web user like www-data) every hour.
