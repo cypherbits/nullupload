@@ -13,8 +13,7 @@ https://github.com/slimphp/Slim-Http/issues/106
 - Fix deleting a blocked hash file.
 
 v1.0:
--admin: new column of file size.
--admin: ban file hashes
+-admin: delete hash ban.
 -admin: config page
 -admin:pagination with JS table.
 
@@ -29,8 +28,6 @@ v1.0:
 -review google font dependency?
 -http range download support
 -statistics: number of total downloads served forever. and number of total file uploaded forever.
-
--Migrate from PropelORM to simple PHP Prepared statements.
 
 
 v1.1:

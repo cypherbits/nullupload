@@ -236,4 +236,16 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
             ]);
         }
     })->setName("adminBlockedFiles");
+
+    $this->map(['GET', 'POST'], '/config', function (Request $request, Response $response, $args) {
+        if (SessionHelper::isAdminSession()) {
+            if ($request->isPost()){
+                //TODO: add or delete
+            }
+
+            return $this->view->render($response, 'admin/config.html', [
+
+            ]);
+        }
+    })->setName("adminConfig");
 });

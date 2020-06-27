@@ -86,6 +86,7 @@ $app->add(function ($request, $response, $next) use ($c) {
     /*$c->view->getEnvironment()->addGlobal("urlAdminOpcache", $this->router->pathFor("adminOpcache"));*/
     $c->view->getEnvironment()->addGlobal("urlAdminDeleteNew", $this->router->pathFor("adminDeleteNew", ["id" => '']));
     $c->view->getEnvironment()->addGlobal("urlAdminPhpinfo", $this->router->pathFor("adminPhpinfo"));
+    $c->view->getEnvironment()->addGlobal("urlAdminConfig", $this->router->pathFor("adminConfig"));
     //$c->view->getEnvironment()->addGlobal("urlUserLogin", $this->router->pathFor("userLogin"));
     //$c->view->getEnvironment()->addGlobal("urlUserJoin", $this->router->pathFor("userJoin"));
 

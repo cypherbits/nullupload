@@ -1,0 +1,5 @@
+#export mysql database
+mysqldump nullupload -u nullupload -p --single-transaction > backup.sql
+
+#import mysql database
+mysql -p nullupload < backup.sql
