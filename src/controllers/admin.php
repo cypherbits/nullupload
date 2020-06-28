@@ -229,7 +229,8 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
             $blockedFiles = $stm->fetchAll();
 
             return $this->view->render($response, 'admin/blockedfiles.html', [
-                'blockedFiles' => $blockedFiles
+                'blockedFiles' => $blockedFiles,
+                'page' => 'blockedfiles'
             ]);
         }
     })->setName("adminBlockedFiles");
@@ -257,7 +258,7 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
             }
 
             return $this->view->render($response, 'admin/config.html', [
-
+                'page' => 'config'
             ]);
         }
     })->setName("adminConfig");

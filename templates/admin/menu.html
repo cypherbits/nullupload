@@ -8,8 +8,8 @@
       <li class="nav-link {% if page == "files" %} active {% endif %}"><a class="nav-link" href="{{urlAdminHome}}">Files</a></li>
       <li class="nav-link {% if page == "news" %} active {% endif %}"><a class="nav-link" href="{{urlAdminNews}}">News posts</a></li>
       <!--<li class="nav-link {% if page == "opcache" %} active {% endif %}"><a class="nav-link" href="{{urlAdminOpcache}}">Opcache</a></li>-->
-      <li class="nav-link"><a class="nav-link" href="{{urlAdminConfig}}">Config</a></li>
-      <li class="nav-link"><a class="nav-link" href="{{path_for('adminBlockedFiles')}}">Blocked files</a></li>
+      <li class="nav-link {% if page == "config" %} active {% endif %}"><a class="nav-link" href="{{urlAdminConfig}}">Config</a></li>
+      <li class="nav-link {% if page == "blockedfiles" %} active {% endif %}"><a class="nav-link" href="{{path_for('adminBlockedFiles')}}">Blocked files</a></li>
       <li class="nav-link"><a class="nav-link" href="{{urlAdminPhpinfo}}">PHPInfo</a></li>
     </ul>
     <ul class="navbar-nav">
