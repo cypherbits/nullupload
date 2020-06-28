@@ -1,82 +1,38 @@
 TODO LIST:
 
-
-
 Attack: sending xml request body
 nullupload-app.ERROR: Call to undefined function Slim\Http\simplexml_load_string() on /var/www/nullupload/vendor/slim/slim/Slim/Http/Request.php at 230
 https://github.com/slimphp/Slim-Http/issues/106
 
-
 - Fix only variables should be passed by reference on do-upload
 - Fix deleting a blocked hash file.
 
-v1.0:
 -admin or cron: see if there are physical files not in database.
 -admin: delete hash ban.
--admin: config page
--admin:pagination with JS table.
+-admin: config page: file type blocks, manual upload blocking, manual download blocking.
+-admin: pagination with JS table.
+-admin:edit news.
 
 -try catch, make a transactional upload.
 
--settings page on admin panel to disable uploads.
--docker deploy for tests?
+-update to bootstrap 5.
+
 -folder size on database instead of a file.
--Migrate to path_for() in Twig template instead of middleware
+-Migrate to path_for() in Twig template instead of middleware.
 
 -favicon.
 -review google font dependency?
 -http range download support
--statistics: number of total downloads served forever. and number of total file uploaded forever.
 
 
-v1.1:
--admin:edit news.
+-onion services support??
+-option to make "separated spaces": uploads from onion only downloable on only etc. Option on admin panel.??
 
-v1.5:
--onion services support.
--option to make "separated spaces": uploads from onion only downloable on only etc. Option on admin panel.
--blocking files by hash.
-
--new file id: based on the password. we wont store password hash anymore.
--edit page??
--encrypt file name and/or extension with the download password for uploads using it.
+-new file id: based on the password. we wont store password hash anymore.??
+-encrypt file name and/or extension with the download password for uploads using it. ??
 
 v2.0: 
--add javascript and mozilla send compatible end-to-end encrypted upload.
+-add javascript and Mozilla Send compatible end-to-end encrypted upload. ?
 
-------------
-Future work:
-------------
 -update password and hashes from sha256 to sha512/256, faster?
--file types config on admin page.
--update sass and bootstrap from the front page.
-
-
-------------------
-History changelog:
-------------------
-
-changelog public: v0.6.2: 13/07/2019
--added new reporting email. make it bold we do not allow child porn.
--UI: check by default hiding the original file name and making a download password.
-
-changelog public v0.6.1: new server [TBR]
--increased disk limit from 4GB to 12GB.
--Removed 100 days, added 120, 150 and 180.
--delete files where last download date is more than 100 days.
-
-
-changelog public v0.6:
--Added metatag to prevent download pages from indexing in Google and other search engines.
--Added latest blog entry title on homepage.
--Files with 0 downloads older than 2 days will be deleted.
--update privacy policy.
--update terms and conditions.
-
-changelog public v0.5:
--updated all internal code and dependencies.
--faster downloads.
--100MB for files and 100 days online for free!
-
-------------------------------------------------------------------
 

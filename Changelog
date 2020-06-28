@@ -1,0 +1,30 @@
+v0.8alpha (2020-06-28):
+- nullupload.com example migrated to scaleway for more performance.
+- migrated from tinymce to ckeditor.
+- more total statistics.
+
+v0.7alpha:
+- migrated from propelORM to simple prepared statements.
+- implement file block list by hash.
+
+changelog public: v0.6.2: 13/07/2019
+-added new reporting email. make it bold we do not allow child porn.
+-UI: check by default hiding the original file name and making a download password.
+
+changelog public v0.6.1: new server [TBR]
+-increased disk limit from 4GB to 12GB.
+-Removed 100 days, added 120, 150 and 180.
+-delete files where last download date is more than 100 days.
+
+
+changelog public v0.6:
+-Added metatag to prevent download pages from indexing in Google and other search engines.
+-Added latest blog entry title on homepage.
+-Files with 0 downloads older than 2 days will be deleted.
+-update privacy policy.
+-update terms and conditions.
+
+changelog public v0.5:
+-updated all internal code and dependencies.
+-faster downloads.
+-100MB for files and 100 days online for free!
