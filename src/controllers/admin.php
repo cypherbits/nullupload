@@ -220,11 +220,8 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
         }
     })->setName("adminDeleteNew");
 
-    $this->map(['GET', 'POST'], '/blockedfiles', function (Request $request, Response $response, $args) {
+    $this->get('/blockedfiles', function (Request $request, Response $response, $args) {
         if (SessionHelper::isAdminSession()) {
-            if ($request->isPost()){
-                //TODO: add or delete
-            }
 
             $stm = DB::getDB()->prepare("select fileHash from bannedFiles");
             $stm->execute();
@@ -236,6 +233,22 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
             ]);
         }
     })->setName("adminBlockedFiles");
+
+    $this->get('/blockedfiles/delete-{filehash}', function (Request $request, Response $response, $args) {
+        if (SessionHelper::isAdminSession()) {
+
+            $fileHash = $request->getAttribute("filehash", null);
+
+            if ($fileHash !== null){
+                $stm = DB::getDB()->prepare("delete from bannedFiles where fileHash = ?");
+                $stm->bindValue(1, $fileHash, PDO::PARAM_STR);
+                $stm->execute();
+            }
+
+            return $response->withRedirect($this->router->pathFor("adminBlockedFiles"));
+
+        }
+    })->setName("adminBlockedFilesDelete");
 
     $this->map(['GET', 'POST'], '/config', function (Request $request, Response $response, $args) {
         if (SessionHelper::isAdminSession()) {

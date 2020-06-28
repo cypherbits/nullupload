@@ -8,11 +8,17 @@
 
 <div class="px-2">
     <table class="table table-sm">
+        <thead>
+        <tr>
+            <th>SHA256 hash of the file</th>
+            <th></th>
+        </tr>
+        </thead>
         <tbody>
         {% for file in blockedFiles %}
         <tr>
             <td>{{file.fileHash}}</td>
-            <td><!--<a href="{{urlAdminDownload}}{{file.Id}}">Remove</a>--></td>
+            <td><a href="{{path_for('adminBlockedFilesDelete', { filehash: file.fileHash } )}}">Remove</a></td>
         </tr>
         {% endfor %}
         </tbody>
