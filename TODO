@@ -1,7 +1,5 @@
 TODO LIST:
 
-7f699cee8c6da5f44f1d95e82bcf
-
 
 
 Attack: sending xml request body
@@ -13,6 +11,7 @@ https://github.com/slimphp/Slim-Http/issues/106
 - Fix deleting a blocked hash file.
 
 v1.0:
+-admin or cron: see if there are physical files not in database.
 -admin: delete hash ban.
 -admin: config page
 -admin:pagination with JS table.

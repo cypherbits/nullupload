@@ -3,3 +3,6 @@ mysqldump nullupload -u nullupload -p --single-transaction > backup.sql
 
 #import mysql database
 mysql -p nullupload < backup.sql
+
+#contrab
+5 * * * * /usr/bin/docker exec --user www-data cnull /var/www/nullupload/cron.sh >> /tmp/cronLog
