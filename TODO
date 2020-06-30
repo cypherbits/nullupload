@@ -5,10 +5,8 @@ nullupload-app.ERROR: Call to undefined function Slim\Http\simplexml_load_string
 https://github.com/slimphp/Slim-Http/issues/106
 
 - Fix only variables should be passed by reference on do-upload
-- Fix deleting a blocked hash file.
 
 -admin or cron: see if there are physical files not in database.
--admin: delete hash ban.
 -admin: config page: file type blocks, manual upload blocking, manual download blocking.
 -admin: pagination with JS table.
 -admin:edit news.
