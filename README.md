@@ -16,3 +16,7 @@ We will be using Docker containers.
 4. Change classes/SessionHelper.php to set the admin username and password. (Username: cleartext, Password: hash sha512)
 5. User Let's Encrypt and Strict HSTS to keep your site safe.
 6. Setup a cron on your server to execute cron.sh (as web user like www-data) every hour.
+
+### Donation:
+
+Monero: 4BCveGZaPM7FejGkhFyHgtjVXZw52RrYxKs7znZdmnWLfB3xDKAW6SkYZPpNhqBvJA8crE8Tug8y7hx8U9KAmq83PwLtVLe
