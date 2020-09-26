@@ -1,7 +1,5 @@
 TODO LIST:
 
-- GetConfig: make a cache so we don't query DDBB on each config value.
-
 -admin or cron: see if there are physical files not in database.
 -admin: config page: file type blocks, manual upload blocking, manual download blocking.
 -admin: pagination with JS table.

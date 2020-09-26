@@ -19,6 +19,7 @@ class DB
     public static $histoTotalFileSize = "histoTotalFileSize";
     public static $histoTotalFileDownloads = "histoTotalFileDownloads";
 
+    public static $configCache = null;
 
     public static function init(array $config){
         self::$config = $config;
@@ -33,10 +34,22 @@ class DB
             self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         //self::$pdo->setAttribute(\PDO::ATTR_AUTOCOMMIT,1);
 
+        self::initCache();
     }
 
     public static function getDB(): \PDO{
         return self::$pdo;
+    }
+
+    private static function initCache():void{
+        //Initialize config cache
+        $stm = DB::getDB()->prepare("select * from config");
+        $stm->execute();
+
+        $configs = $stm->fetchAll();
+        foreach ($configs as $config){
+            self::$configCache[$config['name']] = $config['value'];
+        }
     }
 
     public static function setConfig(string $name, string $value):void{
@@ -44,14 +57,24 @@ class DB
         $stm->bindValue(":name",$name, PDO::PARAM_STR);
         $stm->bindValue(":value",$value, PDO::PARAM_STR);
         $stm->execute();
+
+        self::$configCache[$name] = $value;
     }
 
     public static function getConfig(string $name):string{
-        $stm = DB::getDB()->prepare("select value from config where name = :name limit 1");
-        $stm->bindValue(":name",$name, PDO::PARAM_STR);
-        $stm->execute();
 
-        return $stm->fetch()['value'];
+        if (!isset(self::$configCache[$name])){
+            $stm = DB::getDB()->prepare("select value from config where name = :name limit 1");
+            $stm->bindValue(":name",$name, PDO::PARAM_STR);
+            $stm->execute();
+
+            self::$configCache[$name] = $stm->fetch()['value'];
+
+            return self::$configCache[$name];
+        }else{
+            return self::$configCache[$name];
+        }
+
     }
 
 }
