@@ -78,8 +78,8 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
         if (SessionHelper::isAdminSession()) {
             $fileid = $args['id'];
 
-            $stm = DB::getDB()->prepare("select * from files where id = ? limit 1");
-            $stm->bindParam(1,$fileid, PDO::PARAM_STR);
+            $stm = DB::getDB()->prepare("select * from files where id = :fileid limit 1");
+            $stm->bindValue(":fileid",$fileid, PDO::PARAM_STR);
             $stm->execute();
 
             $file = $stm->fetch();
@@ -92,8 +92,8 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
         if (SessionHelper::isAdminSession()) {
             $fileid = $args['id'];
 
-            $stm = DB::getDB()->prepare("select * from files where id = ? limit 1");
-            $stm->bindParam(1,$fileid, PDO::PARAM_STR);
+            $stm = DB::getDB()->prepare("select * from files where id = :fileid limit 1");
+            $stm->bindValue(":fileid",$fileid, PDO::PARAM_STR);
             $stm->execute();
 
             $file = $stm->fetch();
@@ -110,8 +110,8 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
         if (SessionHelper::isAdminSession()) {
             $fileid = $args['id'];
 
-            $stm = DB::getDB()->prepare("select * from files where id = ? limit 1");
-            $stm->bindParam(1,$fileid, PDO::PARAM_STR);
+            $stm = DB::getDB()->prepare("select * from files where id = :fileid limit 1");
+            $stm->bindValue(":fileid",$fileid, PDO::PARAM_STR);
             $stm->execute();
 
             $file = $stm->fetch();
@@ -122,8 +122,8 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
 
             $fileHash = $file['integrity'];
 
-            $stm = DB::getDB()->prepare("insert into bannedFiles(fileHash) values(?) on duplicate key update fileHash=fileHash");
-            $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
+            $stm = DB::getDB()->prepare("insert into bannedFiles(fileHash) values(:fileHash) on duplicate key update fileHash=fileHash");
+            $stm->bindValue(":fileHash",$fileHash, PDO::PARAM_STR);
             $stm->execute();
         }
 
@@ -192,9 +192,9 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
 
             if (!empty($title) && !empty($text)) {
 
-                $stm = DB::getDB()->prepare("insert into news(title, newText, dateCreation) values(?, ?, NOW())");
-                $stm->bindParam(1,$title, PDO::PARAM_STR);
-                $stm->bindParam(2,$text, PDO::PARAM_STR);
+                $stm = DB::getDB()->prepare("insert into news(title, newText, dateCreation) values(:title, :newText, NOW())");
+                $stm->bindValue(":title",$title, PDO::PARAM_STR);
+                $stm->bindValue(":newText",$text, PDO::PARAM_STR);
                 $stm->execute();
 
             }
@@ -210,8 +210,8 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
     $this->get('/deleteNew-{id}', function ($request, $response, $args) {
         if (SessionHelper::isAdminSession()) {
 
-            $stm = DB::getDB()->prepare("delete from news where id = ? limit 1");
-            $stm->bindParam(1,$args['id'], PDO::PARAM_INT);
+            $stm = DB::getDB()->prepare("delete from news where id = :newid limit 1");
+            $stm->bindValue(":newid",$args['id'], PDO::PARAM_INT);
             $stm->execute();
 
             return $response->withRedirect($this->router->pathFor("adminNews"));
@@ -241,8 +241,8 @@ $app->group('/'.SessionHelper::$adminDirectory, function () {
             $fileHash = $request->getAttribute("filehash", null);
 
             if ($fileHash !== null){
-                $stm = DB::getDB()->prepare("delete from bannedFiles where fileHash = ?");
-                $stm->bindValue(1, $fileHash, PDO::PARAM_STR);
+                $stm = DB::getDB()->prepare("delete from bannedFiles where fileHash = :fileHash");
+                $stm->bindValue(":fileHash", $fileHash, PDO::PARAM_STR);
                 $stm->execute();
             }
 

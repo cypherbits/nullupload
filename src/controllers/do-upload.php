@@ -118,8 +118,8 @@ set_time_limit(851);
 
                 $fileHash = hash_file("sha256", __DIR__ . '/../' . '../uploads/' . $filename);
 
-                $stm = DB::getDB()->prepare("select count(*) as nhash from bannedFiles where fileHash = ? limit 1");
-                $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
+                $stm = DB::getDB()->prepare("select count(*) as nhash from bannedFiles where fileHash = :fileHash limit 1");
+                $stm->bindValue(":fileHash",$fileHash, PDO::PARAM_STR);
                 $stm->execute();
 
                 $nhash = (int) $stm->fetch()['nhash'];
@@ -132,8 +132,8 @@ set_time_limit(851);
                 }
 
                 //If we want to upload a file already uploaded check the number of downloads: if 0 user may have lost the link then delete the older file and allow upload, if more than 0 block upload
-                $stm = DB::getDB()->prepare("select id, nDownloads, filename from files where integrity = ? limit 1");
-                $stm->bindParam(1,$fileHash, PDO::PARAM_STR);
+                $stm = DB::getDB()->prepare("select id, nDownloads, filename from files where integrity = :fintegrity limit 1");
+                $stm->bindValue(":fintegrity",$fileHash, PDO::PARAM_STR);
                 $stm->execute();
 
                 if ($stm->rowCount() > 0){
@@ -154,17 +154,18 @@ set_time_limit(851);
 
                 $fileSize = filesize(__DIR__ . '/../' . '../uploads/' . $filename);
 
-                $stm = DB::getDB()->prepare("insert into files(id, origName, filename, extension, uploadDate, type, password, deletePassword, deleteDate, integrity, fileSize) values(?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)");
-                $stm->bindParam(1,$id, PDO::PARAM_STR);
-                $stm->bindParam(2,$origname, PDO::PARAM_STR);
-                $stm->bindParam(3,$filename, PDO::PARAM_STR);
-                $stm->bindParam(4,$extension, PDO::PARAM_STR);
-                $stm->bindParam(5,substr($results['mime'], 0, 64), PDO::PARAM_STR);
-                $stm->bindParam(6,$hpassword, PDO::PARAM_STR);
-                $stm->bindParam(7,hash("sha256", $deletePassword), PDO::PARAM_STR);
-                $stm->bindParam(8,date("Y-m-d H:i:s", $deleteDate));
-                $stm->bindParam(9,$fileHash, PDO::PARAM_STR);
-                $stm->bindParam(10,$fileSize, PDO::PARAM_INT);
+                $stm = DB::getDB()->prepare("insert into files(id, origName, filename, extension, uploadDate, type, password, deletePassword, deleteDate, integrity, fileSize) 
+values(:fileid, :origname, :filename, :extension, NOW(), :type, :password, :dpassword, :ddate, :integrity, :filesize)");
+                $stm->bindValue(":fileid",$id, PDO::PARAM_STR);
+                $stm->bindValue(":origname",$origname, PDO::PARAM_STR);
+                $stm->bindValue(":filename",$filename, PDO::PARAM_STR);
+                $stm->bindValue(":extension",$extension, PDO::PARAM_STR);
+                $stm->bindValue(":type",substr($results['mime'], 0, 64), PDO::PARAM_STR);
+                $stm->bindValue(":password",$hpassword, PDO::PARAM_STR);
+                $stm->bindValue(":dpassword",hash("sha256", $deletePassword), PDO::PARAM_STR);
+                $stm->bindValue(":ddate",date("Y-m-d H:i:s", $deleteDate));
+                $stm->bindValue(":integrity",$fileHash, PDO::PARAM_STR);
+                $stm->bindValue(":filesize",$fileSize, PDO::PARAM_INT);
                 $stm->execute();
 
                 $downloadUrl = IOHelper::getProto() . $_SERVER['SERVER_NAME'] . $this->router->pathFor("download", [

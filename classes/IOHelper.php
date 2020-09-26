@@ -22,8 +22,8 @@ class IOHelper {
 
         if (!$admin) {
 
-            $stm = DB::getDB()->prepare("update files set nDownloads = nDownloads + 1, lastDownload = NOW() where id = ? limit 1");
-            $stm->bindParam(1,$file['id'], PDO::PARAM_STR);
+            $stm = DB::getDB()->prepare("update files set nDownloads = nDownloads + 1, lastDownload = NOW() where id = :fileid limit 1");
+            $stm->bindValue(":fileid",$file['id'], PDO::PARAM_STR);
             $stm->execute();
 
             $totalFilesDownloaded = (int) DB::getConfig(DB::$histoTotalFileDownloads);
@@ -75,8 +75,8 @@ class IOHelper {
             unlink($fullpath);
         }
 
-        $stm = DB::getDB()->prepare("delete from files where id = ? limit 1");
-        $stm->bindParam(1,$file['id'], PDO::PARAM_STR);
+        $stm = DB::getDB()->prepare("delete from files where id = :fileid limit 1");
+        $stm->bindValue(":fileid",$file['id'], PDO::PARAM_STR);
         $stm->execute();
 
         //recount size
