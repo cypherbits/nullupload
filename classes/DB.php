@@ -40,16 +40,15 @@ class DB
     }
 
     public static function setConfig(string $name, string $value):void{
-        $stm = DB::getDB()->prepare("INSERT INTO config (name, value) VALUES(?, ?) ON DUPLICATE KEY UPDATE value=?");
-        $stm->bindParam(1,$name, PDO::PARAM_STR);
-        $stm->bindParam(2,$value, PDO::PARAM_STR);
-        $stm->bindParam(3,$value, PDO::PARAM_STR);
+        $stm = DB::getDB()->prepare("INSERT INTO config (name, value) VALUES(:name, :value) ON DUPLICATE KEY UPDATE value=:value");
+        $stm->bindValue(":name",$name, PDO::PARAM_STR);
+        $stm->bindValue(":value",$value, PDO::PARAM_STR);
         $stm->execute();
     }
 
     public static function getConfig(string $name):string{
-        $stm = DB::getDB()->prepare("select value from config where name = ? limit 1");
-        $stm->bindParam(1,$name, PDO::PARAM_STR);
+        $stm = DB::getDB()->prepare("select value from config where name = :name limit 1");
+        $stm->bindValue(":name",$name, PDO::PARAM_STR);
         $stm->execute();
 
         return $stm->fetch()['value'];

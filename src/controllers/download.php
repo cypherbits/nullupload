@@ -10,8 +10,8 @@ $app->map(['GET', 'POST'], '/download-{id:[a-z0-9]{8,10}}[-{password:[a-z0-9]{8,
     $name = $request->getAttribute($nameKey);
     $value = $request->getAttribute($valueKey);
 
-    $stm = DB::getDB()->prepare("select * from files where id = ? limit 1");
-    $stm->bindParam(1,$args['id'], PDO::PARAM_STR);
+    $stm = DB::getDB()->prepare("select * from files where id = :fileid limit 1");
+    $stm->bindValue(":fileid",$args['id'], PDO::PARAM_STR);
     $stm->execute();
 
     $file = $stm->fetch();
