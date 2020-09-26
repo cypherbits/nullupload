@@ -1,9 +1,5 @@
 TODO LIST:
 
-Attack: sending xml request body
-nullupload-app.ERROR: Call to undefined function Slim\Http\simplexml_load_string() on /var/www/nullupload/vendor/slim/slim/Slim/Http/Request.php at 230
-https://github.com/slimphp/Slim-Http/issues/106
-
 - Fix only variables should be passed by reference on do-upload
 
 -admin or cron: see if there are physical files not in database.

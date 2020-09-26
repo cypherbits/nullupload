@@ -78,7 +78,6 @@ $app->add(function ($request, $response, $next) use ($c) {
     $c->view->getEnvironment()->addGlobal("urlPrivacy", $this->router->pathFor("privacy"));
     $c->view->getEnvironment()->addGlobal("urlAdminHome", $this->router->pathFor("admin"));
     $c->view->getEnvironment()->addGlobal("urlAdminNews", $this->router->pathFor("adminNews"));
-   // $c->view->getEnvironment()->addGlobal("urlAdminUsers", "#");
     $c->view->getEnvironment()->addGlobal("urlAdminLogout", $this->router->pathFor("adminLogout"));
     $c->view->getEnvironment()->addGlobal("urlAdminDownload", $this->router->pathFor("adminDownload" , ["id" => '']));
     $c->view->getEnvironment()->addGlobal("urlAdminDelete", $this->router->pathFor("adminDelete", ["id" => '']));
@@ -87,8 +86,11 @@ $app->add(function ($request, $response, $next) use ($c) {
     $c->view->getEnvironment()->addGlobal("urlAdminDeleteNew", $this->router->pathFor("adminDeleteNew", ["id" => '']));
     $c->view->getEnvironment()->addGlobal("urlAdminPhpinfo", $this->router->pathFor("adminPhpinfo"));
     $c->view->getEnvironment()->addGlobal("urlAdminConfig", $this->router->pathFor("adminConfig"));
-    //$c->view->getEnvironment()->addGlobal("urlUserLogin", $this->router->pathFor("userLogin"));
-    //$c->view->getEnvironment()->addGlobal("urlUserJoin", $this->router->pathFor("userJoin"));
+
+
+    //Fix autoparsing from XML body when we do not use it... so we can disable php-xml extension
+    $request->registerMediaTypeParser('application/xml', function () { return []; });
+    $request->registerMediaTypeParser('text/xml', function () { return []; });
 
     $response = $next($request, $response);
     //$response->getBody()->write('AFTER');
