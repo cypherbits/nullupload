@@ -53,9 +53,10 @@ class DB
     }
 
     public static function setConfig(string $name, string $value):void{
-        $stm = DB::getDB()->prepare("INSERT INTO config (name, value) VALUES(:name, :value) ON DUPLICATE KEY UPDATE value=:value");
+        $stm = DB::getDB()->prepare("INSERT INTO config (name, value) VALUES(:name, :value) ON DUPLICATE KEY UPDATE value=:value2");
         $stm->bindValue(":name",$name, PDO::PARAM_STR);
         $stm->bindValue(":value",$value, PDO::PARAM_STR);
+        $stm->bindValue(":value2",$value, PDO::PARAM_STR);
         $stm->execute();
 
         self::$configCache[$name] = $value;
