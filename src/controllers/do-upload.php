@@ -60,7 +60,7 @@ set_time_limit(851);
                 $_array = explode('.', $origname);
                 if (count($_array) > 1) {
                     $extension = end($_array);
-                    $extension = strlen($extension) > 5 ? substr($extension, 0, 5): $extension;
+                    $extension = strlen($extension) > 10 ? substr($extension, 0, 10): $extension;
                 } else {
                     $extension = "";
                 }
