@@ -1,3 +1,9 @@
+v0.9alpha (2020-10-09):
+- Do not alow XML body requests.
+- Config cache so we do not query DDBB multiple times on each request.
+- Use bindValue instead of bindParam.
+- Saved file extension length is now 10 instead of 5. So we store better files like *.torrent or *.properties
+
 v0.8alpha (2020-06-28):
 - nullupload.com example migrated to scaleway for more performance.
 - migrated from tinymce to ckeditor.
