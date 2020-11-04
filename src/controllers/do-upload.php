@@ -21,7 +21,7 @@ set_time_limit(851);
 
             $upload->set_allowed_mime_types($settings['mimesForb']);
 
-            if ($request->getParam('checkChangeFilename') == 'yes') {
+            if ($request->getParam('checkChangeFilename') === 'yes') {
 
                 class validation {
 
@@ -65,13 +65,13 @@ set_time_limit(851);
                     $extension = "";
                 }
 
-                if ($request->getParam('checkChangeFilename') == 'yes') {
+                if ($request->getParam('checkChangeFilename') === 'yes') {
                     $origname = null;
                 } else{
                     $extension = "none";
                 }
 
-                if ($request->getParam('checkWithPass') == 'yes') {
+                if ($request->getParam('checkWithPass') === 'yes') {
                     $password = IOHelper::getRandomName(7);
                     $hpassword = hash("sha256", $password);
 
@@ -84,7 +84,7 @@ set_time_limit(851);
                     $hpassword = null;
                 }
 
-                $password = isset($password) ? $password : 'No password';
+                $password = $password ?? 'No password';
 
                 $deletePassword = IOHelper::getRandomName(7);
 
@@ -181,7 +181,7 @@ values(:fileid, :origname, :filename, :extension, NOW(), :type, :password, :dpas
                 DB::setConfig(DB::$histoTotalFileSize, $totalsize);
 
                 $totalFilesUploaded = (int) DB::getConfig(DB::$histoTotalFileUpload);
-                $totalFilesUploaded += 1;
+                ++$totalFilesUploaded;
                 DB::setConfig(DB::$histoTotalFileUpload, $totalFilesUploaded);
 
                 $deleteDate = IOHelper::getStringCountdownDelete($deleteDate);
