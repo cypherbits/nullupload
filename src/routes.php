@@ -46,6 +46,8 @@ require("controllers/delete.php");
 
 require("controllers/admin.php");
 
+require("controllers/setup.php");
+
 $app->get('/news', function ($request, $response, $args) {
 
     $stm = DB::getDB()->prepare("select * from news order by dateCreation desc");

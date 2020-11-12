@@ -55,10 +55,10 @@ return [
             'enableFileEncryption' => false
         ],
         'database' => [
-            'server' => 'localhost',
-            'database' => 'nullupload',
-            'username' => 'nullupload',
-            'password' => 'asdasdf'
+            'server' => '',
+            'database' => '',
+            'username' => '',
+            'password' => ''
         ],
     ],
 ];

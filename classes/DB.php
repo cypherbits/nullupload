@@ -19,7 +19,7 @@ class DB
     public static $histoTotalFileSize = "histoTotalFileSize";
     public static $histoTotalFileDownloads = "histoTotalFileDownloads";
 
-    public static $configCache = null;
+    private static $configCache = null;
 
     public static function init(array $config){
         self::$config = $config;

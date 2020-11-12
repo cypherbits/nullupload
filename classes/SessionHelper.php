@@ -27,7 +27,6 @@ class SessionHelper {
     }
 
     public static function init() {
-
         ini_set("session.gc_maxlifetime", self::$maxSessionLifetime);
         ini_set("session.use_strict_mode", "1");
         ini_set("session.cookie_httponly", "1");
@@ -131,35 +130,8 @@ class SessionHelper {
         }
     }
 
-//    /** @return string Returns the client IP* */
-//    private static function _getClientIP() {
-//
-//        //Cloudflare compatibility
-//        if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
-//            $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
-//        }
-//
-//        $ipaddress = '';
-//        if (getenv('HTTP_CLIENT_IP'))
-//            $ipaddress = getenv('HTTP_CLIENT_IP');
-//        else if (getenv('HTTP_X_FORWARDED_FOR'))
-//            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-//        else if (getenv('HTTP_X_FORWARDED'))
-//            $ipaddress = getenv('HTTP_X_FORWARDED');
-//        else if (getenv('HTTP_FORWARDED_FOR'))
-//            $ipaddress = getenv('HTTP_FORWARDED_FOR');
-//        else if (getenv('HTTP_FORWARDED'))
-//            $ipaddress = getenv('HTTP_FORWARDED');
-//        else if (getenv('REMOTE_ADDR'))
-//            $ipaddress = getenv('REMOTE_ADDR');
-//        else
-//            $ipaddress = 'UNKNOWN';
-//        return $ipaddress;
-//    }
-
     /** @return string Returns the client IP* */
     private static function _getClientIP() {
-
         return $_SERVER['REMOTE_ADDR'];
     }
 

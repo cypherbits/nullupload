@@ -1,21 +1,20 @@
 TODO LIST:
-
+v1.0 Beta 1:
 -admin or cron: see if there are physical files not in database.
 -admin: config page: file type blocks, manual upload blocking, manual download blocking.
+-try catch, make a transactional upload.
+-Migrate to path_for() in Twig template instead of middleware.
+-setup page with easy autoupdate
+
+
 -admin: pagination with JS table.
 -admin:edit news.
 
--try catch, make a transactional upload.
-
 -update to bootstrap 5.
-
--folder size on database instead of a file.
--Migrate to path_for() in Twig template instead of middleware.
 
 -favicon.
 -review google font dependency?
 -http range download support
-
 
 -onion services support??
 -option to make "separated spaces": uploads from onion only downloable on only etc. Option on admin panel.??

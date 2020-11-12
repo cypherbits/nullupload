@@ -10,7 +10,7 @@ $app->get('/delete-{id:[a-z0-9]{8,10}}-{deletePassword:[a-z0-9]{8,14}}', functio
 
     $file = $stm->fetch();
 
-    if ($file != null) {
+    if ($file !== null) {
         if (hash_equals(hash("sha256", $args['deletePassword']), $file['deletePassword'])) {
 
             $path = __DIR__ . "/../../uploads/";

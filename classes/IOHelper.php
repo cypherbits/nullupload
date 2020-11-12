@@ -12,9 +12,9 @@ class IOHelper {
     private static function isHTTPS():bool {
         return
             (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            || $_SERVER['SERVER_PORT'] == 443;
+            || $_SERVER['SERVER_PORT'] === 443;
     }
-    public static function getProto(){
+    public static function getProto():bool{
         return self::isHTTPS() ? 'https://' : 'http://';
     }
 
@@ -27,7 +27,7 @@ class IOHelper {
             $stm->execute();
 
             $totalFilesDownloaded = (int) DB::getConfig(DB::$histoTotalFileDownloads);
-            $totalFilesDownloaded += 1;
+            ++$totalFilesDownloaded;
             DB::setConfig(DB::$histoTotalFileDownloads, $totalFilesDownloaded);
         }
 
@@ -80,8 +80,7 @@ class IOHelper {
         $stm->execute();
 
         //recount size
-
-        $totalsize = IOHelper::get_total_size($path);
+        $totalsize = self::get_total_size($path);
         DB::setConfig(DB::$histoTotalFileSize, $totalsize);
 
         return true;
@@ -92,28 +91,9 @@ class IOHelper {
      * @param int $length Length of the name generated
      * @return string
      */
-    public static function getRandomName($length = 4) {
+    public static function getRandomName($length = 4): string{
         return bin2hex(random_bytes($length));
     }
-
-//    public static function db2mime($mimes, $n) {
-//        $arr = array();
-//        for ($i = 0; $i < count($mimes); $i++) {
-//            $arr[$i + 1] = $mimes[$i];
-//        }
-//
-//        return $arr[$n];
-//    }
-//
-//    public static function mime2db($mimes, $mime) {
-//
-//        $arr = array();
-//        for ($i = 0; $i < count($mimes); $i++) {
-//            $arr[$mimes[$i]] = $i + 1;
-//        }
-//
-//        return $arr[$mime];
-//    }
 
     public static function get_total_size($system) {
         $size = 0;
@@ -123,13 +103,13 @@ class IOHelper {
             if (is_dir($system . '/' . $file)) {
                 $size+=get_total_size("{$system}/{$file}");
             } else {
-                $size = $size + filesize("{$system}/{$file}");
+                $size += filesize("{$system}/{$file}");
             }
         }
         return $size;
     }
 
-    public static function getStringCountdownDelete($deleteDate) {
+    public static function getStringCountdownDelete($deleteDate): string{
         $rem = $deleteDate - time();
         $day = floor($rem / 86400);
         $hr = floor(($rem % 86400) / 3600);
@@ -153,6 +133,14 @@ class IOHelper {
     }
 
     public static function decryptFile($file, $password, $iv){
+
+    }
+
+    public static function settingsFileExists():bool{
+
+    }
+
+    public static function saveSettings(){
 
     }
 
