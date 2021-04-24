@@ -266,7 +266,7 @@ class Upload {
 
 		//checks whether upload successful
 		if (!$status) {
-			throw new Exception('Upload: Can\'t upload file.');
+			throw new Exception('Upload: Cannot move uploaded file.');
 		}
 
 		//done
