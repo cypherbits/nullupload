@@ -17,6 +17,14 @@ We will be using Docker containers.
 5. User Let's Encrypt and Strict HSTS to keep your site safe.
 6. Setup a cron on your server to execute cron.sh (as web user like www-data) every hour.
 
+### Files and folders
+`_tcache` contains the Twig cache files.
+`classes` contains our custom helpers classes.
+`logs` contains our app log.
+`public` is our public server folder. index and UI.
+`templates` our UI/Twig templates.
+`uploads` our uploaded files.
+
 # Donate
 https://ko-fi.com/cypherbits
 
