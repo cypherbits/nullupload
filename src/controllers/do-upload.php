@@ -59,7 +59,7 @@ set_time_limit(851);
                 $filename = $results['filename'];
                 $_array = explode('.', $origname);
                 if (count($_array) > 1) {
-                    $extension = end($_array);
+                    $extension = strtolower(end($_array));
                     $extension = strlen($extension) > 10 ? substr($extension, 0, 10): $extension;
                 } else {
                     $extension = "";
