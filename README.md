@@ -1,3 +1,5 @@
+## Maintenance mode. No new features expected. Centralized file hosting services will be replaced with decentralized, DAO, and crypto Web 3.0 soon, resistant to censorship with better privacy. There is no need to make a software like this file hosting anymore.
+
 # nullupload.com PHP file hosting
 
 **This is the source code of the free file hosting nullupload.com feel free to use to start your own file hosting. 
