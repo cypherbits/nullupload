@@ -47,6 +47,9 @@ return [
                 'application/vnd.android.package-archive',
                 'application/x-executable'
             ],
+            'mimesForbContains' => [
+                'video/'
+            ],
             'admin' => [
                 'directory' => '',
                 'user' => '',

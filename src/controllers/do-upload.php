@@ -19,7 +19,8 @@ set_time_limit(851);
 
             $upload->set_max_file_size($settings['maxFileSize']);
 
-            $upload->set_allowed_mime_types($settings['mimesForb']);
+            //This is actually for setting the forbidden mime types, not the allowed...
+            $upload->set_allowed_mime_types($settings['mimesForb'], $settings['mimesForbContains']);
 
             if ($request->getParam('checkChangeFilename') === 'yes') {
 

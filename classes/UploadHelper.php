@@ -62,6 +62,8 @@ class Upload {
 	 */
 	protected $mimes = array();
 
+    protected $mimes_contains = array();
+
 
 	/**
 	 * External callback object
@@ -392,11 +394,17 @@ class Upload {
 
 		if (!empty($object->mimes)) {
 
-			if (in_array($object->file['mime'], $object->mimes)) {
+			if (in_array($object->file['mime'], $object->mimes, true)) {
 
 				$object->set_error('Mime type not allowed. Detected ' . $object->file['mime']);
 
 			}
+
+            foreach($object->mimes_contains as $mcont) {
+                if (stripos($object->file['mime'],$mcont) !== false) {
+                    $object->set_error('Mime type not allowed. Detected ' . $object->file['mime']);
+                }
+            }
 
 		}
 
@@ -408,9 +416,10 @@ class Upload {
 	 *
 	 * @param array $mimes
 	 */
-	public function set_allowed_mime_types($mimes) {
+	public function set_allowed_mime_types($mimes, $mimes_contains) {
 
 		$this->mimes		= $mimes;
+        $this->mimes_contains = $mimes_contains;
 
 		//if mime types is set -> set callback
 		$this->callbacks[]	= 'check_mime_type';
