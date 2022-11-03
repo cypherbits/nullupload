@@ -23,7 +23,7 @@ $files = $stm->fetchAll();
 foreach ($files as $file) {
     if (strtotime($file['deleteDate']) < time() ||
         (strtotime('+1 day', strtotime($file['uploadDate'])) < time() && (int) $file['nDownloads'] < 2) ||
-    (!empty($file['lastDownload']) && strtotime('+93 day', strtotime($file['lastDownload'])) < time())) {
+    (!empty($file['lastDownload']) && strtotime('+90 day', strtotime($file['lastDownload'])) < time())) {
 
         echo "\n->Deleting file id: " . $file['id'];
 
